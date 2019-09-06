@@ -22,6 +22,12 @@ class Navbar extends LitElement {
     `;
   }
 
+  handleLogout(e) {
+    e.preventDefault();
+    localStorage.setItem("auth-token", "");
+    window.location = "/login";
+  }
+
   render() {
     return html`
       <div class="navbar">
@@ -30,6 +36,7 @@ class Navbar extends LitElement {
         </div>
         <div class="elements">
           <a href="/quests">Quests</a>
+          <a href="" @click=${this.handleLogout}>Logout</a>
         </div>
       </div>
     `;
