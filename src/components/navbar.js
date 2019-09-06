@@ -25,6 +25,7 @@ class Navbar extends LitElement {
   handleLogout(e) {
     e.preventDefault();
     localStorage.setItem("auth-token", "");
+    localStorage.setItem("user", "");
     window.location = "/login";
   }
 
