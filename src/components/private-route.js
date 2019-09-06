@@ -1,7 +1,6 @@
 import { LitElement, html } from "lit-element";
 import { API_CONFIG } from "../config";
 
-// Extend the LitElement base class
 class PrivateRoute extends LitElement {
   constructor() {
     super();

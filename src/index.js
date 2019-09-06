@@ -4,6 +4,7 @@ import "./components/navbar";
 
 import "../src/routes/login";
 import "../src/routes/quest";
+import "../src/components/modal";
 
 class Root extends LitElement {
   static get properties() {

@@ -13,22 +13,40 @@ export const questStyle = css`
   }
   p {
     margin: 0;
-    padding: 0 16px;
+    padding: 0 8px;
   }
   .quest_list__element {
     padding: 16px 0;
     border-bottom: 1px solid #eaeaea;
     cursor: pointer;
+    display: flex;
+    align-items: center;
   }
-  .quest_list__element:hover {
-    background-color: #eaeaea;
+  .quest_list__element button {
+    width: 40%;
+  }
+  .quest_list__element p {
+    width: 60%;
+  }
+  .quest_list__element p:hover {
+    text-decoration: underline;
   }
   .quest_steps_list {
     width: 80%;
-    padding: 16px 0;
+  }
+  .quest_steps_list button {
+    width: 100%;
   }
   .quest_step {
     padding: 16px 0;
     border-bottom: 1px solid #eaeaea;
+    display: flex;
+    align-items: center;
+  }
+  .quest_step__content {
+    width: 80%;
+  }
+  .quest_steps_list .quest_step button {
+    width: 20%;
   }
 `;
