@@ -13,8 +13,15 @@ class Navbar extends LitElement {
         z-index: 1000;
         padding: 0 16px;
       }
+      a {
+        text-decoration: none;
+      }
       .logo {
         margin: 0 8px;
+      }
+      .elements {
+        display: flex;
+        align-items: center;
       }
       .elements a {
         margin: 0 8px;
@@ -36,6 +43,7 @@ class Navbar extends LitElement {
           QuestBuilder
         </div>
         <div class="elements">
+          <small>Hi ${localStorage.getItem("user")}!</small>
           <a href="/quests">Quests</a>
           <a href="" @click=${this.handleLogout}>Logout</a>
         </div>
