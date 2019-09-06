@@ -1,0 +1,15 @@
+{
+  "name": "beacon-noi-frontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "ps": "polymer serve",
+    "pb": "polymer build",
+    "ph": "polymer --help",
+    "pi": "polymer init"
+  },
+  "dependencies": {
+    "polymer-cli": "^1.9.11"
+  }
+}
