@@ -5,40 +5,35 @@ import { API_CONFIG } from "../config";
 class PrivateRoute extends LitElement {
   constructor() {
     super();
+    this.isLogged = false;
   }
 
   static get properties() {
-    return {};
+    return { isLogged: { type: Boolean } };
   }
 
-  async firstUpdated() {
+  async connectedCallback() {
+    // async firstUpdated() {
+    super.connectedCallback();
     const token = localStorage.getItem("auth-token");
     if (token) {
       try {
         const request = await fetch(
           `${API_CONFIG.base_path}/check-token/?token=${token}`
         );
-
-        const results = await request.json();
-        console.log(results);
+        await request.json();
+        this.isLogged = true;
       } catch (e) {
-        console.log(e);
-        // window.location = "/login";
+        window.location = "/login";
       }
     } else {
-      // window.location = "/login";
+      window.location = "/login";
     }
   }
 
   render() {
-    if (this.path !== window.location.pathname) {
-      return null;
-    }
-
     return html`
-      <div>
-        ${this.children}
-      </div>
+      ${!this.isLogged ? null : this.children}
     `;
   }
 }

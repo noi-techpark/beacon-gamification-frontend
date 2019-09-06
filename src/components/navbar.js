@@ -30,7 +30,6 @@ class Navbar extends LitElement {
         </div>
         <div class="elements">
           <a href="/quests">Quests</a>
-          <a href="/login">Login</a>
         </div>
       </div>
     `;

@@ -1,6 +1,5 @@
 import { LitElement, html } from "lit-element";
 
-// Extend the LitElement base class
 class Quest extends LitElement {
   render() {
     return html`
@@ -10,5 +9,5 @@ class Quest extends LitElement {
     `;
   }
 }
-// Register the new element with the browser.
+
 customElements.define("x-route-quests", Quest);
