@@ -21,8 +21,6 @@ class Root extends LitElement {
   }
 
   render() {
-    console.log(this.current_route);
-
     return html`
       <div>
         ${this.current_route !== "/login"

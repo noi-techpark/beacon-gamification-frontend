@@ -13,7 +13,6 @@ class PrivateRoute extends LitElement {
   }
 
   async connectedCallback() {
-    // async firstUpdated() {
     super.connectedCallback();
     const token = localStorage.getItem("auth-token");
     if (token) {

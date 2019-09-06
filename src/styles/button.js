@@ -27,4 +27,9 @@ export const buttonStyle = css`
     vertical-align: middle;
     white-space: nowrap;
   }
+  button:hover {
+    border: 0.05rem solid #5755d9;
+    background-color: #5755d9;
+    color: white;
+  }
 `;
