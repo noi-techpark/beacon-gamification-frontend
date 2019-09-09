@@ -68,7 +68,7 @@ class Modal extends connect(store)(LitElement) {
                   <button @click=${this.handleCloseModal}>❌</button>
                 </div>
                 <div class="modal_content__body">
-                  ${this.contentFunction()}
+                  ${this.contentFunction(store.getState())}
                 </div>
                 <div class="modal_content__footer"></div>
               </div>

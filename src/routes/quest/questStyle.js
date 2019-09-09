@@ -23,7 +23,7 @@ export const questStyle = css`
     align-items: center;
   }
   .quest_list__element button {
-    width: 40%;
+    width: auto;
   }
   .quest_list__element p {
     width: 60%;

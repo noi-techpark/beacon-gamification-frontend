@@ -6,6 +6,7 @@ export const questsReducerActionTypes = {
 
 const INITIAL_STATE = {
   // currentQuestId?: number;
+  // currentQuest: {};
   questList: {}
 };
 
@@ -22,9 +23,14 @@ export const questReducer = (state = INITIAL_STATE, action) => {
         questList: action.payload
       };
     case questsReducerActionTypes.SELECT_CURRENT_QUEST:
+      const currentQuest = state.questList.results.find(
+        o => o.id === action.payload
+      );
+
       return {
         ...state,
-        currentQuestId: action.payload
+        currentQuestId: action.payload,
+        currentQuest
       };
     default:
       return state;

@@ -3,20 +3,22 @@ import { connect } from "pwa-helpers";
 import { showModalAction } from "../../actions/modalsActions";
 import {
   getQuestListAction,
-  selectQuestAction
+  selectQuestAction,
+  deleteQuestAction
 } from "../../actions/questActions";
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
 import { MODAL_IDS } from "../../utils/modals_ids";
 import { createQuestForm } from "./components/createQuestForm";
 import { questStyle } from "./questStyle";
+import { editQuestForm } from "./components/editQuestForm";
 
 class Quest extends connect(store)(LitElement) {
   constructor() {
     super();
-    // this.selected_quest = {};
     this.questList = [];
     this.createQuestForm = createQuestForm.bind(this);
+    this.editQuestForm = editQuestForm.bind(this);
   }
 
   static get styles() {
@@ -27,12 +29,10 @@ class Quest extends connect(store)(LitElement) {
     return {
       questList: { type: Array },
       currentQuestId: { type: Number }
-      // selected_quest: { type: Object }
     };
   }
 
   stateChanged({ questReducer }) {
-    console.log(questReducer);
     if (questReducer.questList.results) {
       this.questList = questReducer.questList.results;
     }
@@ -71,10 +71,22 @@ class Quest extends connect(store)(LitElement) {
                   ${o.name}
                 </p>
                 <button
-                  @click=${() =>
-                    this.manageShowQuestModals(MODAL_IDS.editQuest)}
+                  @click=${() => {
+                    store.dispatch(selectQuestAction(o.id));
+                    this.manageShowQuestModals(MODAL_IDS.editQuest);
+                  }}
                 >
                   ✏️
+                </button>
+                <button
+                  @click=${() => {
+                    const result = confirm("Want to delete?");
+                    if (result) {
+                      store.dispatch(deleteQuestAction(o.id));
+                    }
+                  }}
+                >
+                  ❌
                 </button>
               </div>
             `;
@@ -122,10 +134,9 @@ class Quest extends connect(store)(LitElement) {
       </x-modal>
       <x-modal
         modalId=${MODAL_IDS.editQuest}
-        title="Create a step for the quest"
-        .contentFunction=${() => {}}
-        ><div>edit</div></x-modal
-      >
+        title="Edit quest"
+        .contentFunction=${this.editQuestForm}
+      ></x-modal>
     `;
   }
 }
