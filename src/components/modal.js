@@ -1,24 +1,30 @@
-import { css, LitElement, html } from "lit-element";
-import { buttonStyle } from "../styles/button";
+import { css, html, LitElement } from "lit-element";
 import { connect } from "pwa-helpers";
 import { store } from "../createStore";
 import { modalsReducerActionTypes } from "../reducers/modalsReducer";
+import { buttonStyle } from "../styles/button";
+import { formStyle } from "../styles/form";
 
 class Modal extends connect(store)(LitElement) {
   static get properties() {
     return {
-      show: { type: Boolean }
+      modalId: { type: String },
+      show: { type: Boolean },
+      title: { type: String },
+      contentFunction: { type: Function }
     };
   }
 
   constructor() {
     super();
     this.show = false;
+    this.modalId = "";
   }
 
   static get styles() {
     return [
       buttonStyle,
+      formStyle,
       css`
         .modal {
           position: fixed;
@@ -39,6 +45,10 @@ class Modal extends connect(store)(LitElement) {
           box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
           padding: 16px;
         }
+        .modal_content__header {
+          display: flex;
+          justify-content: space-between;
+        }
       `
     ];
   }
@@ -49,13 +59,18 @@ class Modal extends connect(store)(LitElement) {
 
   render() {
     return html`
-      ${this.show
+      ${this.show && this.modalId === this.currentModal
         ? html`
             <div class="modal">
               <div class="modal_content">
-                ${this.show}
-                <button @click=${this.handleCloseModal}>❌</button>
-                MODAL
+                <div class="modal_content__header">
+                  ${this.title}
+                  <button @click=${this.handleCloseModal}>❌</button>
+                </div>
+                <div class="modal_content__body">
+                  ${this.contentFunction()}
+                </div>
+                <div class="modal_content__footer"></div>
               </div>
             </div>
           `
@@ -65,6 +80,7 @@ class Modal extends connect(store)(LitElement) {
 
   stateChanged({ modalsReducer }) {
     this.show = modalsReducer.showModal;
+    this.currentModal = modalsReducer.currentModal;
   }
 }
 

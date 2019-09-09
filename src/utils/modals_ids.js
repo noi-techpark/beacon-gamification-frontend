@@ -1,3 +1,4 @@
 export const MODAL_IDS = {
-  editQuest: "editQuest"
+  editQuest: "editQuest",
+  createQuest: "createQuest"
 };

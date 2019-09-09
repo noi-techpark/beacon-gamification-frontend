@@ -11,9 +11,9 @@ const INITIAL_STATE = {
 export const modalsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case modalsReducerActionTypes.SHOW_MODAL:
-      return { ...state, showModal: true };
+      return { ...state, showModal: true, currentModal: action.payload };
     case modalsReducerActionTypes.HIDE_MODAL:
-      return { ...state, showModal: false };
+      return { ...state, showModal: false, currentModal: "" };
     default:
       return state;
   }

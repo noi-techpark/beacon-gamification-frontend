@@ -1,19 +1,19 @@
 import { html, LitElement } from "lit-element";
+import { connect } from "pwa-helpers";
 import { showModalAction } from "../../actions/modalsActions";
-// import { connect } from "pwa-helpers";
-import { API_CONFIG } from "../../config";
+import { getQuestListAction } from "../../actions/questActions";
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
 import { MODAL_IDS } from "../../utils/modals_ids";
-// import { store } from "../createStore";
+import { createQuestForm } from "./components/createQuestForm";
 import { questStyle } from "./questStyle";
 
-// class Quest extends connect(store)(LitElement) {
-class Quest extends LitElement {
+class Quest extends connect(store)(LitElement) {
   constructor() {
     super();
-    this.quests = [];
     this.selected_quest = {};
+    this.questList = [];
+    this.createQuestForm = createQuestForm.bind(this);
   }
 
   static get styles() {
@@ -22,34 +22,28 @@ class Quest extends LitElement {
 
   static get properties() {
     return {
-      quests: { type: Array },
+      questList: { type: Array },
       selected_quest: { type: Object }
-      // show_quest_edit_modal: { type: Boolean },
-      // show_quest_step_edit_modal: { type: Boolean }
     };
   }
 
-  stateChanged(state) {
-    console.log(state);
-    this.show = state.showModal;
+  stateChanged({ questReducer }) {
+    console.log(questReducer);
+    if (questReducer.questList.results) {
+      this.questList = questReducer.questList.results;
+    }
   }
 
   async firstUpdated() {
-    const request = await fetch(`${API_CONFIG.base_path}/quest/`, {
-      headers: {
-        Authorization: `Token ${localStorage.getItem("auth-token")}`
-      }
-    });
-    const response = await request.json();
-    this.quests = [...response.results];
+    store.dispatch(getQuestListAction());
   }
 
   handleQuestClick(quest) {
     this.selected_quest = { ...quest };
   }
 
-  manageShowQuestEditModal() {
-    store.dispatch(showModalAction(MODAL_IDS.editQuest));
+  manageShowQuestModals(id) {
+    store.dispatch(showModalAction(id));
   }
 
   render() {
@@ -57,13 +51,11 @@ class Quest extends LitElement {
       <div class="quest_inspector_container">
         <div class="quest_list">
           <button
-            @click=${() => {
-              console.log("add quest");
-            }}
+            @click=${() => this.manageShowQuestModals(MODAL_IDS.createQuest)}
           >
             ➕ Add quest
           </button>
-          ${this.quests.map(o => {
+          ${this.questList.map(o => {
             return html`
               <div class="quest_list__element">
                 <p
@@ -73,14 +65,15 @@ class Quest extends LitElement {
                 >
                   ${o.name}
                 </p>
-                <button @click=${this.manageShowQuestEditModal}>
+                <button
+                  @click=${() =>
+                    this.manageShowQuestModals(MODAL_IDS.editQuest)}
+                >
                   ✏️
                 </button>
               </div>
             `;
           })}
-
-          <x-modal modalId=${MODAL_IDS.editQuest}></x-modal>
         </div>
 
         <div class="quest_steps_list">
@@ -115,6 +108,19 @@ class Quest extends LitElement {
             : null}
         </div>
       </div>
+
+      <x-modal
+        modalId=${MODAL_IDS.createQuest}
+        title="Create a quest"
+        .contentFunction=${this.createQuestForm}
+      >
+      </x-modal>
+      <x-modal
+        modalId=${MODAL_IDS.editQuest}
+        title="Create a step for the quest"
+        .contentFunction=${() => {}}
+        ><div>edit</div></x-modal
+      >
     `;
   }
 }

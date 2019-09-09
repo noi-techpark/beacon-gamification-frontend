@@ -1,4 +1,4 @@
-import { LitElement, css } from "lit-element";
+import { css } from "lit-element";
 
 export const formStyle = css`
   form {
