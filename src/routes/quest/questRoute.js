@@ -1,13 +1,15 @@
 import { html, LitElement } from "lit-element";
+import { showModalAction } from "../../actions/modalsActions";
+// import { connect } from "pwa-helpers";
 import { API_CONFIG } from "../../config";
+import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
+import { MODAL_IDS } from "../../utils/modals_ids";
+// import { store } from "../createStore";
 import { questStyle } from "./questStyle";
 
-import { connect } from "pwa-helpers";
-import { store } from "../createStore";
-import { modalsReducerActionTypes } from "../../reducers/modals";
-
-class Quest extends connect(store)(LitElement) {
+// class Quest extends connect(store)(LitElement) {
+class Quest extends LitElement {
   constructor() {
     super();
     this.quests = [];
@@ -21,10 +23,15 @@ class Quest extends connect(store)(LitElement) {
   static get properties() {
     return {
       quests: { type: Array },
-      selected_quest: { type: Object },
-      show_quest_edit_modal: { type: Boolean },
-      show_quest_step_edit_modal: { type: Boolean }
+      selected_quest: { type: Object }
+      // show_quest_edit_modal: { type: Boolean },
+      // show_quest_step_edit_modal: { type: Boolean }
     };
+  }
+
+  stateChanged(state) {
+    console.log(state);
+    this.show = state.showModal;
   }
 
   async firstUpdated() {
@@ -42,9 +49,7 @@ class Quest extends connect(store)(LitElement) {
   }
 
   manageShowQuestEditModal() {
-    console.log("Edit");
-    // this.show_quest_edit_modal = !this.show_quest_edit_modal;
-    store.dispatch({ type: modalsReducerActionTypes.SHOW_MODAL });
+    store.dispatch(showModalAction(MODAL_IDS.editQuest));
   }
 
   render() {
@@ -75,11 +80,7 @@ class Quest extends connect(store)(LitElement) {
             `;
           })}
 
-          <x-modal
-            showManage=${this.manageShowQuestEditModal}
-            show=${this.show_quest_edit_modal}
-            modalId="editQuest"
-          ></x-modal>
+          <x-modal modalId=${MODAL_IDS.editQuest}></x-modal>
         </div>
 
         <div class="quest_steps_list">

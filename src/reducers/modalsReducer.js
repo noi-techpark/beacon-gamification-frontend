@@ -4,7 +4,8 @@ export const modalsReducerActionTypes = {
 };
 
 const INITIAL_STATE = {
-  showModal: false
+  showModal: false,
+  currentModal: ""
 };
 
 export const modalsReducer = (state = INITIAL_STATE, action) => {

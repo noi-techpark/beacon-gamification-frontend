@@ -1,7 +1,15 @@
-import { createStore } from "redux";
-import { modalsReducer } from "./reducers/modals.js";
+import { lazyReducerEnhancer } from "pwa-helpers/lazy-reducer-enhancer.js";
+import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import thunk from "redux-thunk";
+import { modalsReducer } from "./reducers/modalsReducer";
+
+const devCompose = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(
-  modalsReducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  state => state,
+  devCompose(lazyReducerEnhancer(combineReducers), applyMiddleware(thunk))
 );
+
+store.addReducers({
+  modalsReducer
+});

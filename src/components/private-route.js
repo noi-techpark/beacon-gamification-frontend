@@ -29,6 +29,11 @@ class PrivateRoute extends LitElement {
     }
   }
 
+  // TODO: verify if it works
+  // shouldUpdate() {
+  //   return this.isLogged;
+  // }
+
   render() {
     return html`
       ${!this.isLogged ? null : this.children}

@@ -2,15 +2,20 @@ import { css, LitElement, html } from "lit-element";
 import { buttonStyle } from "../styles/button";
 import { connect } from "pwa-helpers";
 import { store } from "../createStore";
+import { modalsReducerActionTypes } from "../reducers/modalsReducer";
 
 class Modal extends connect(store)(LitElement) {
-  // constructor() {
-  //   super();
-  // }
-  stateChanged(state) {
-    console.log(state);
-    this.show = state.showModal;
+  static get properties() {
+    return {
+      show: { type: Boolean }
+    };
   }
+
+  constructor() {
+    super();
+    this.show = false;
+  }
+
   static get styles() {
     return [
       buttonStyle,
@@ -37,24 +42,29 @@ class Modal extends connect(store)(LitElement) {
       `
     ];
   }
-  static get properties() {
-    return {
-      show: { type: Boolean },
-      showManage: { type: Function }
-    };
+
+  handleCloseModal() {
+    store.dispatch({ type: modalsReducerActionTypes.HIDE_MODAL });
   }
+
   render() {
-    // console.log(connect(store));
-    if (this.show) {
-      return html`
-        <div class="modal">
-          <div class="modal_content">
-            <button @click=${this.showManage}>❌</button>
-            MODAL
-          </div>
-        </div>
-      `;
-    }
+    return html`
+      ${this.show
+        ? html`
+            <div class="modal">
+              <div class="modal_content">
+                ${this.show}
+                <button @click=${this.handleCloseModal}>❌</button>
+                MODAL
+              </div>
+            </div>
+          `
+        : null}
+    `;
+  }
+
+  stateChanged({ modalsReducer }) {
+    this.show = modalsReducer.showModal;
   }
 }
 

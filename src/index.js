@@ -1,10 +1,9 @@
-import { LitElement, html } from "lit-element";
-import "./components/private-route";
-import "./components/navbar";
-
+import { html, LitElement } from "lit-element";
 import "../src/routes/login";
-import "../src/routes/quest";
-import "../src/components/modal";
+import "../src/routes/quest/questRoute";
+import "./components/modal";
+import "./components/navbar";
+import "./components/private-route";
 
 class Root extends LitElement {
   static get properties() {

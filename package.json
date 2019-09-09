@@ -13,6 +13,7 @@
     "lit-element": "^2.2.1",
     "polymer-cli": "^1.9.11",
     "pwa-helpers": "^0.9.1",
-    "redux": "^4.0.4"
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0"
   }
 }
