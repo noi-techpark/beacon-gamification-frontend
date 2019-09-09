@@ -2,16 +2,16 @@ import { html, LitElement } from "lit-element";
 import { connect } from "pwa-helpers";
 import { showModalAction } from "../../actions/modalsActions";
 import {
+  deleteQuestAction,
   getQuestListAction,
-  selectQuestAction,
-  deleteQuestAction
+  selectQuestAction
 } from "../../actions/questActions";
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
 import { MODAL_IDS } from "../../utils/modals_ids";
 import { createQuestForm } from "./components/createQuestForm";
-import { questStyle } from "./questStyle";
 import { editQuestForm } from "./components/editQuestForm";
+import { questStyle } from "./questStyle";
 
 class Quest extends connect(store)(LitElement) {
   constructor() {

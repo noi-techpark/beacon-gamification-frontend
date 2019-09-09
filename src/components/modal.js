@@ -49,6 +49,13 @@ class Modal extends connect(store)(LitElement) {
           display: flex;
           justify-content: space-between;
         }
+        label {
+          margin-top: 0.5rem;
+          display: block;
+        }
+        .close_x {
+          cursor: pointer;
+        }
       `
     ];
   }
@@ -65,7 +72,9 @@ class Modal extends connect(store)(LitElement) {
               <div class="modal_content">
                 <div class="modal_content__header">
                   ${this.title}
-                  <button @click=${this.handleCloseModal}>❌</button>
+                  <span class="close_x" @click=${this.handleCloseModal}
+                    >❌</span
+                  >
                 </div>
                 <div class="modal_content__body">
                   ${this.contentFunction(store.getState())}

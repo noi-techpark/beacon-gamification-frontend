@@ -33,7 +33,8 @@ export const questStyle = css`
     text-decoration: underline;
   }
   .quest_steps_list {
-    width: 80%;
+    width: 40%;
+    border-right: 1px solid #eaeaea;
   }
   .quest_steps_list button {
     width: 100%;
