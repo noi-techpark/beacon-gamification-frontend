@@ -44,11 +44,12 @@ export const questStyle = css`
     border-bottom: 1px solid #eaeaea;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
   .quest_step__content {
     width: 80%;
   }
   .quest_steps_list .quest_step button {
-    width: 20%;
+    width: auto;
   }
 `;

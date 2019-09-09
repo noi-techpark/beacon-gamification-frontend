@@ -117,13 +117,22 @@ class Quest extends connect(store)(LitElement) {
                         <p>Name: ${step.name}</p>
                         <p>Points: ${step.value_points}</p>
                       </div>
-                      <button
-                        @click=${() => {
-                          console.log("Edit");
-                        }}
-                      >
-                        ✏️
-                      </button>
+                      <div>
+                        <button
+                          @click=${() => {
+                            console.log("Edit");
+                          }}
+                        >
+                          ✏️
+                        </button>
+                        <button
+                          @click=${() => {
+                            console.log("Delete");
+                          }}
+                        >
+                          ❌
+                        </button>
+                      </div>
                     </div>
                   `;
                 })
