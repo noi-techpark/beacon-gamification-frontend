@@ -13,7 +13,7 @@ export function editQuestForm(state) {
       @submit=${e => {
         e.preventDefault();
         store.dispatch(
-          editQuestAction(questId, {
+          editQuestAction(currentQuest.id, {
             name: newQuestName,
             position: newQuestPosition
           })

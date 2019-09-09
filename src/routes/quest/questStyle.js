@@ -21,6 +21,7 @@ export const questStyle = css`
     cursor: pointer;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
   .quest_list__element button {
     width: auto;

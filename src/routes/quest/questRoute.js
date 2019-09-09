@@ -68,26 +68,31 @@ class Quest extends connect(store)(LitElement) {
                     store.dispatch(selectQuestAction(o.id));
                   }}
                 >
-                  ${o.name}
+                  ${o.name} <br />
+                  <small>
+                    ${o.position}
+                  </small>
                 </p>
-                <button
-                  @click=${() => {
-                    store.dispatch(selectQuestAction(o.id));
-                    this.manageShowQuestModals(MODAL_IDS.editQuest);
-                  }}
-                >
-                  ✏️
-                </button>
-                <button
-                  @click=${() => {
-                    const result = confirm("Want to delete?");
-                    if (result) {
-                      store.dispatch(deleteQuestAction(o.id));
-                    }
-                  }}
-                >
-                  ❌
-                </button>
+                <div>
+                  <button
+                    @click=${() => {
+                      store.dispatch(selectQuestAction(o.id));
+                      this.manageShowQuestModals(MODAL_IDS.editQuest);
+                    }}
+                  >
+                    ✏️
+                  </button>
+                  <button
+                    @click=${() => {
+                      const result = confirm("Want to delete?");
+                      if (result) {
+                        store.dispatch(deleteQuestAction(o.id));
+                      }
+                    }}
+                  >
+                    ❌
+                  </button>
+                </div>
               </div>
             `;
           })}
