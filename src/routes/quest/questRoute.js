@@ -1,7 +1,10 @@
 import { html, LitElement } from "lit-element";
 import { connect } from "pwa-helpers";
 import { showModalAction } from "../../actions/modalsActions";
-import { getQuestListAction } from "../../actions/questActions";
+import {
+  getQuestListAction,
+  selectQuestAction
+} from "../../actions/questActions";
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
 import { MODAL_IDS } from "../../utils/modals_ids";
@@ -11,7 +14,7 @@ import { questStyle } from "./questStyle";
 class Quest extends connect(store)(LitElement) {
   constructor() {
     super();
-    this.selected_quest = {};
+    // this.selected_quest = {};
     this.questList = [];
     this.createQuestForm = createQuestForm.bind(this);
   }
@@ -23,7 +26,8 @@ class Quest extends connect(store)(LitElement) {
   static get properties() {
     return {
       questList: { type: Array },
-      selected_quest: { type: Object }
+      currentQuestId: { type: Number }
+      // selected_quest: { type: Object }
     };
   }
 
@@ -32,14 +36,11 @@ class Quest extends connect(store)(LitElement) {
     if (questReducer.questList.results) {
       this.questList = questReducer.questList.results;
     }
+    this.currentQuestId = questReducer.currentQuestId;
   }
 
   async firstUpdated() {
     store.dispatch(getQuestListAction());
-  }
-
-  handleQuestClick(quest) {
-    this.selected_quest = { ...quest };
   }
 
   manageShowQuestModals(id) {
@@ -47,6 +48,10 @@ class Quest extends connect(store)(LitElement) {
   }
 
   render() {
+    const selected_quest = this.currentQuestId
+      ? this.questList.find(o => o.id === this.currentQuestId)
+      : {};
+
     return html`
       <div class="quest_inspector_container">
         <div class="quest_list">
@@ -60,7 +65,7 @@ class Quest extends connect(store)(LitElement) {
               <div class="quest_list__element">
                 <p
                   @click=${() => {
-                    this.handleQuestClick(o);
+                    store.dispatch(selectQuestAction(o.id));
                   }}
                 >
                   ${o.name}
@@ -84,8 +89,8 @@ class Quest extends connect(store)(LitElement) {
           >
             ➕ Add step
           </button>
-          ${this.selected_quest.steps
-            ? this.selected_quest.steps
+          ${selected_quest.steps
+            ? selected_quest.steps
                 .sort((a, b) => a.quest_index - b.quest_index)
                 .map(step => {
                   return html`

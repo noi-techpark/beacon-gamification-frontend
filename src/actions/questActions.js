@@ -44,3 +44,10 @@ export const getQuestListAction = () => async (dispatch, getState) => {
     console.error(e);
   }
 };
+
+export const selectQuestAction = id => {
+  return {
+    type: questsReducerActionTypes.SELECT_CURRENT_QUEST,
+    payload: id
+  };
+};
