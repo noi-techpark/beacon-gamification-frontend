@@ -15,8 +15,6 @@ export const questReducer = (state = INITIAL_STATE, action) => {
         questList: action.payload
       };
     case questsReducerActionTypes.GET_QUEST_LIST_SUCCESS:
-      console.log(action.payload);
-
       return {
         ...state,
         questList: action.payload
