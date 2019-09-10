@@ -73,7 +73,11 @@ class Quest extends connect(store)(LitElement) {
           </button>
           ${this.questList.map(o => {
             return html`
-              <div class="quest_list__element">
+              <div
+                class=${`quest_list__element ${
+                  o.id === selected_quest.id ? "element_active" : ""
+                }`}
+              >
                 <p
                   @click=${() => {
                     store.dispatch(selectQuestAction(o.id));
@@ -126,7 +130,13 @@ class Quest extends connect(store)(LitElement) {
                 .sort((a, b) => a.quest_index - b.quest_index)
                 .map(o => {
                   return html`
-                    <div class="quest_step">
+                    <div
+                      class=${`quest_step ${
+                        o.id === this.currentQuestStep.id
+                          ? "element_active"
+                          : ""
+                      }`}
+                    >
                       <div
                         class="quest_step__content"
                         @click=${() => {

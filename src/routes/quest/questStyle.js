@@ -19,6 +19,9 @@ export const questStyle = css`
     margin: 0.5rem 0 0 0;
     padding: 0 8px;
   }
+  .element_active {
+    background-color: #eaeaea;
+  }
   .quest_list__element {
     padding: 16px 0;
     border-bottom: 1px solid #eaeaea;
