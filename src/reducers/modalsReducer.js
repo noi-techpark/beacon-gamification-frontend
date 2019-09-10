@@ -16,7 +16,9 @@ export const modalsReducer = (state = INITIAL_STATE, action) => {
       return { ...state, showModal: true, currentModal: action.payload };
     case modalsReducerActionTypes.HIDE_MODAL:
     case questsReducerActionTypes.CREATE_QUEST_SUCCESS:
+    case questsReducerActionTypes.EDIT_QUEST_SUCCESS:
     case questsReducerActionTypes.CREATE_QUEST_STEPS_SUCCESS:
+    case questsReducerActionTypes.EDIT_QUEST_STEP_SUCCESS:
       return { ...state, showModal: false, currentModal: "" };
     default:
       return state;

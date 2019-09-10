@@ -1,12 +1,10 @@
 import { html } from "lit-html";
-import { createQuestStepAction } from "../../../actions/questActions";
+import { editQuestStepAction } from "../../../actions/questActions";
 import { store } from "../../../createStore";
 
 export function editQuestStepForm(state) {
   const { beaconList } = state.beaconsReducer;
   const { currentQuestStep } = state.questReducer;
-  // const { name } = currentQuestStep;
-  console.log(beaconList);
 
   let newQuestStepName = currentQuestStep ? currentQuestStep.name : "";
   let newQuestStepProperties = currentQuestStep
@@ -24,8 +22,6 @@ export function editQuestStepForm(state) {
     : "";
   let newQuestStepBeacon = currentQuestStep ? currentQuestStep.beacon : "";
 
-  console.log("-------", newQuestStepBeacon, typeof newQuestStepBeacon);
-
   return html`
     <form
       action=""
@@ -41,7 +37,7 @@ export function editQuestStepForm(state) {
           newQuestStepBeacon
         ) {
           store.dispatch(
-            createQuestStepAction({
+            editQuestStepAction(currentQuestStep.id, {
               name: newQuestStepName,
               properties: newQuestStepProperties,
               value_points: newQuestStepValue_points,
@@ -86,12 +82,13 @@ export function editQuestStepForm(state) {
       <label>Properties <small>content of the step</small></label>
       <textarea
         rows="4"
-        value=${newQuestStepProperties}
         @keyup=${e => {
           newQuestStepProperties = e.target.value;
         }}
         name="properties"
-      ></textarea>
+      >
+${newQuestStepProperties}</textarea
+      >
 
       <label>Value Points</label>
       <input

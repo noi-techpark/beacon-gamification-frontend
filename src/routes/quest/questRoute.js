@@ -41,7 +41,7 @@ class Quest extends connect(store)(LitElement) {
 
   stateChanged({ questReducer }) {
     if (questReducer.questList.results) {
-      this.questList = questReducer.questList.results;
+      this.questList = [...questReducer.questList.results];
     }
     if (questReducer.currentQuestStep) {
       this.currentQuestStep = { ...questReducer.currentQuestStep };
