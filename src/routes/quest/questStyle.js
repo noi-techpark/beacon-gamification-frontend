@@ -55,6 +55,7 @@ export const questStyle = css`
   }
   .quest_step__content {
     width: 80%;
+    cursor: pointer;
   }
   .quest_steps_list .quest_step button {
     width: auto;
