@@ -101,14 +101,17 @@ class Quest extends connect(store)(LitElement) {
         </div>
 
         <div class="quest_steps_list">
-          <button
-            @click=${() => {
-              // console.log("add step");
-              this.manageShowQuestModals(MODAL_IDS.createQuestStep);
-            }}
-          >
-            ➕ Add step
-          </button>
+          ${Boolean(this.currentQuestId)
+            ? html`
+                <button
+                  @click=${() => {
+                    this.manageShowQuestModals(MODAL_IDS.createQuestStep);
+                  }}
+                >
+                  ➕ Add step
+                </button>
+              `
+            : null}
           ${selected_quest.steps
             ? selected_quest.steps
                 .sort((a, b) => a.quest_index - b.quest_index)
