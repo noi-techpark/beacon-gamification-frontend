@@ -159,7 +159,7 @@ class Quest extends connect(store)(LitElement) {
       ></x-modal>
       <x-modal
         modalId=${MODAL_IDS.createQuestStep}
-        title="Create quest step"
+        title=${`Create quest step for ${selected_quest.name}`}
         .contentFunction=${this.createQuestStepForm}
       ></x-modal>
     `;

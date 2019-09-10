@@ -4,6 +4,7 @@ import { store } from "../../../createStore";
 
 export function createQuestStepForm(state) {
   const { currentQuest } = state.questReducer;
+  const { beaconList } = state.beaconsReducer;
 
   let newQuestStepName = "";
   let newQuestStepProperties = "";
@@ -11,7 +12,6 @@ export function createQuestStepForm(state) {
   let newQuestStepQuest_index = "";
   let newQuestStepType = "";
   let newQuestStepInstructions = "";
-  // let newQuestStepQuest = "";
   let newQuestStepBeacon = "";
 
   return html`
@@ -26,7 +26,6 @@ export function createQuestStepForm(state) {
           newQuestStepQuest_index &&
           newQuestStepType &&
           newQuestStepInstructions &&
-          // newQuestStepQuest &&
           newQuestStepBeacon
         ) {
           store.dispatch(
@@ -102,16 +101,23 @@ export function createQuestStepForm(state) {
       />
 
       <label>Beacon <small>associate</small></label>
-      <input
-        value=${newQuestStepBeacon}
-        @keyup=${e => {
+      <select
+        name="beacon"
+        id=""
+        @change=${e => {
           newQuestStepBeacon = e.target.value;
         }}
-        name="beacon"
-      />
+      >
+        <option value="">-- Choose one --</option>
+        ${beaconList.results.map(o => {
+          return html`
+            <option value=${o.id}>${o.name}</option>
+          `;
+        })}
+      </select>
 
       <button submit class="full_width submit">
-        Edit
+        Create
       </button>
     </form>
   `;

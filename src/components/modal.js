@@ -33,6 +33,7 @@ class Modal extends connect(store)(LitElement) {
           top: 0;
           left: 0;
           z-index: 9;
+          background: rgba(247, 248, 249, 0.75);
         }
         .modal_content {
           width: 400px;
