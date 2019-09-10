@@ -3,6 +3,7 @@ import { connect } from "pwa-helpers";
 import { showModalAction } from "../../actions/modalsActions";
 import {
   deleteQuestAction,
+  deleteQuestStepAction,
   getQuestListAction,
   selectQuestAction,
   selectQuestStepAction
@@ -10,11 +11,11 @@ import {
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
 import { MODAL_IDS } from "../../utils/modals_ids";
-import { createQuestStepForm } from "./components/createQuestStepForm";
 import { createQuestForm } from "./components/createQuestForm";
+import { createQuestStepForm } from "./components/createQuestStepForm";
 import { editQuestForm } from "./components/editQuestForm";
-import { questStyle } from "./questStyle";
 import { editQuestStepForm } from "./components/editQuestStepForm";
+import { questStyle } from "./questStyle";
 
 class Quest extends connect(store)(LitElement) {
   constructor() {
@@ -160,7 +161,10 @@ class Quest extends connect(store)(LitElement) {
                         </button>
                         <button
                           @click=${() => {
-                            console.log("Delete");
+                            const result = confirm("Want to delete?");
+                            if (result) {
+                              store.dispatch(deleteQuestStepAction(o.id));
+                            }
                           }}
                         >
                           ❌

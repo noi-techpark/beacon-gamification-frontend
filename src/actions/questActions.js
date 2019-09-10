@@ -161,3 +161,28 @@ export const editQuestStepAction = (id, body) => async (dispatch, getState) => {
     console.error(e);
   }
 };
+
+export const deleteQuestStepAction = id => async (dispatch, getState) => {
+  try {
+    await fetch(`${API_CONFIG.base_path}/quest-steps/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("auth-token")}`
+      }
+    });
+    const requestQuestList = await fetch(`${API_CONFIG.base_path}/quest/`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("auth-token")}`
+      }
+    });
+    const questList = await requestQuestList.json();
+
+    dispatch({
+      type: questsReducerActionTypes.DELETE_QUEST_STEP_SUCCESS,
+      payload: questList
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};
