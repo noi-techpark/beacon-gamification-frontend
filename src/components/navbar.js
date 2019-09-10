@@ -45,6 +45,7 @@ class Navbar extends LitElement {
         <div class="elements">
           <small>Hi ${localStorage.getItem("user")}!</small>
           <a href="/quests">Quests</a>
+          <a href="/beacons">Beacons</a>
           <a href="" @click=${this.handleLogout}>Logout</a>
         </div>
       </div>

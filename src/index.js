@@ -1,6 +1,7 @@
 import { html, LitElement } from "lit-element";
 import "../src/routes/login";
 import "../src/routes/quest/questRoute";
+import "../src/routes/beacon/beaconRoute";
 import "./components/modal";
 import "./components/navbar";
 import "./components/private-route";
@@ -36,6 +37,11 @@ class Root extends LitElement {
         ${this.current_route === "/quests"
           ? html`
               <private-route><x-route-quests></x-route-quests></private-route>
+            `
+          : null}
+        ${this.current_route === "/beacons"
+          ? html`
+              <private-route><x-route-beacon></x-route-beacon></private-route>
             `
           : null}
       </div>
