@@ -9,6 +9,7 @@ import {
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
 import { MODAL_IDS } from "../../utils/modals_ids";
+import { createQuestStepForm } from "./components/createQuestStepForm";
 import { createQuestForm } from "./components/createQuestForm";
 import { editQuestForm } from "./components/editQuestForm";
 import { questStyle } from "./questStyle";
@@ -19,6 +20,7 @@ class Quest extends connect(store)(LitElement) {
     this.questList = [];
     this.createQuestForm = createQuestForm.bind(this);
     this.editQuestForm = editQuestForm.bind(this);
+    this.createQuestStepForm = createQuestStepForm.bind(this);
   }
 
   static get styles() {
@@ -101,7 +103,8 @@ class Quest extends connect(store)(LitElement) {
         <div class="quest_steps_list">
           <button
             @click=${() => {
-              console.log("add step");
+              // console.log("add step");
+              this.manageShowQuestModals(MODAL_IDS.createQuestStep);
             }}
           >
             ➕ Add step
@@ -150,6 +153,11 @@ class Quest extends connect(store)(LitElement) {
         modalId=${MODAL_IDS.editQuest}
         title="Edit quest"
         .contentFunction=${this.editQuestForm}
+      ></x-modal>
+      <x-modal
+        modalId=${MODAL_IDS.createQuestStep}
+        title="Create quest step"
+        .contentFunction=${this.createQuestStepForm}
       ></x-modal>
     `;
   }

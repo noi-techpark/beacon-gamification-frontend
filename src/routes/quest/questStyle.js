@@ -18,7 +18,6 @@ export const questStyle = css`
   .quest_list__element {
     padding: 16px 0;
     border-bottom: 1px solid #eaeaea;
-    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -28,6 +27,7 @@ export const questStyle = css`
   }
   .quest_list__element p {
     width: 60%;
+    cursor: pointer;
   }
   .quest_list__element p:hover {
     text-decoration: underline;
