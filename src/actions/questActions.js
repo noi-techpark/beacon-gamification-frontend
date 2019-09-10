@@ -103,6 +103,13 @@ export const selectQuestAction = id => {
   };
 };
 
+export const selectQuestStepAction = id => {
+  return {
+    type: questsReducerActionTypes.SELECT_CURRENT_QUEST_STEP,
+    payload: id
+  };
+};
+
 export const createQuestStepAction = body => async (dispatch, getState) => {
   try {
     await fetch(`${API_CONFIG.base_path}/quest-steps/`, {

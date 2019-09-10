@@ -4,7 +4,8 @@ import { showModalAction } from "../../actions/modalsActions";
 import {
   deleteQuestAction,
   getQuestListAction,
-  selectQuestAction
+  selectQuestAction,
+  selectQuestStepAction
 } from "../../actions/questActions";
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
@@ -115,13 +116,18 @@ class Quest extends connect(store)(LitElement) {
           ${selected_quest.steps
             ? selected_quest.steps
                 .sort((a, b) => a.quest_index - b.quest_index)
-                .map(step => {
+                .map(o => {
                   return html`
                     <div class="quest_step">
-                      <div class="quest_step__content">
-                        <p>Step ${step.quest_index}</p>
-                        <p>Name: ${step.name}</p>
-                        <p>Points: ${step.value_points}</p>
+                      <div
+                        class="quest_step__content"
+                        @click=${() => {
+                          store.dispatch(selectQuestStepAction(o.id));
+                        }}
+                      >
+                        <p>Step ${o.quest_index}</p>
+                        <p>Name: ${o.name}</p>
+                        <p>Points: ${o.value_points}</p>
                       </div>
                       <div>
                         <button
