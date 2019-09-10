@@ -15,6 +15,10 @@ export const questStyle = css`
     margin: 0;
     padding: 0 8px;
   }
+  h3 {
+    margin: 0.5rem 0 0 0;
+    padding: 0 8px;
+  }
   .quest_list__element {
     padding: 16px 0;
     border-bottom: 1px solid #eaeaea;
@@ -51,5 +55,11 @@ export const questStyle = css`
   }
   .quest_steps_list .quest_step button {
     width: auto;
+  }
+  .quest_steps_details {
+    width: 40%;
+  }
+  .quest_steps_details hr {
+    border-bottom-color: 1px solid #eaeaea;
   }
 `;
