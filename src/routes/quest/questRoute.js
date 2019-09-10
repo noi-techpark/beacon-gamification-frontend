@@ -31,7 +31,8 @@ class Quest extends connect(store)(LitElement) {
   static get properties() {
     return {
       questList: { type: Array },
-      currentQuestId: { type: Number }
+      currentQuestId: { type: Number },
+      currentQuestStep: { type: Object }
     };
   }
 
@@ -39,7 +40,14 @@ class Quest extends connect(store)(LitElement) {
     if (questReducer.questList.results) {
       this.questList = questReducer.questList.results;
     }
-    this.currentQuestId = questReducer.currentQuestId;
+    if (questReducer.currentQuestStep) {
+      console.log(questReducer.currentQuestStep);
+
+      this.currentQuestStep = { ...questReducer.currentQuestStep };
+    }
+    if (questReducer.currentQuestId) {
+      this.currentQuestId = questReducer.currentQuestId;
+    }
   }
 
   async firstUpdated() {
@@ -148,6 +156,30 @@ class Quest extends connect(store)(LitElement) {
                     </div>
                   `;
                 })
+            : null}
+        </div>
+        <div class="quest_steps_details">
+          ${this.currentQuestStep && this.currentQuestStep.id
+            ? html`
+                <div>
+                  <label>beacon</label>
+                  <p>${this.currentQuestStep.beacon}</p>
+                  <label>quest_index</label>
+                  <p>${this.currentQuestStep.quest_index}</p>
+                  <label>type</label>
+                  <p>${this.currentQuestStep.type}</p>
+                  <label>name</label>
+                  <p>${this.currentQuestStep.name}</p>
+                  <label>instructions</label>
+                  <p>${this.currentQuestStep.instructions}</p>
+                  <label>properties</label>
+                  <p>${this.currentQuestStep.properties}</p>
+                  <label>value_points</label>
+                  <p>${this.currentQuestStep.value_points}</p>
+                  <label>quest</label>
+                  <p>${this.currentQuestStep.quest}</p>
+                </div>
+              `
             : null}
         </div>
       </div>

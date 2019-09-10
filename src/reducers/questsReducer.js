@@ -31,7 +31,9 @@ export const questReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentQuestId: action.payload,
-        currentQuest
+        currentQuest,
+        currentQuestStepId: undefined,
+        currentQuestStep: {}
       };
 
     case questsReducerActionTypes.SELECT_CURRENT_QUEST_STEP:
