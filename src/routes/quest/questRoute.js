@@ -152,7 +152,7 @@ class Quest extends connect(store)(LitElement) {
                       <div>
                         <button
                           @click=${() => {
-                            console.log("Edit");
+                            store.dispatch(selectQuestStepAction(o.id));
                             this.manageShowQuestModals(MODAL_IDS.editQuestStep);
                           }}
                         >

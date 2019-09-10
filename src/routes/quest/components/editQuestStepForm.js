@@ -3,16 +3,28 @@ import { createQuestStepAction } from "../../../actions/questActions";
 import { store } from "../../../createStore";
 
 export function editQuestStepForm(state) {
-  const { currentQuest } = state.questReducer;
   const { beaconList } = state.beaconsReducer;
+  const { currentQuestStep } = state.questReducer;
+  // const { name } = currentQuestStep;
+  console.log(beaconList);
 
-  let newQuestStepName = "";
-  let newQuestStepProperties = "";
-  let newQuestStepValue_points = "";
-  let newQuestStepQuest_index = "";
-  let newQuestStepType = "";
-  let newQuestStepInstructions = "";
-  let newQuestStepBeacon = "";
+  let newQuestStepName = currentQuestStep ? currentQuestStep.name : "";
+  let newQuestStepProperties = currentQuestStep
+    ? currentQuestStep.properties
+    : "";
+  let newQuestStepValue_points = currentQuestStep
+    ? currentQuestStep.value_points
+    : "";
+  let newQuestStepQuest_index = currentQuestStep
+    ? currentQuestStep.quest_index
+    : "";
+  let newQuestStepType = currentQuestStep ? currentQuestStep.type : "";
+  let newQuestStepInstructions = currentQuestStep
+    ? currentQuestStep.instructions
+    : "";
+  let newQuestStepBeacon = currentQuestStep ? currentQuestStep.beacon : "";
+
+  console.log("-------", newQuestStepBeacon, typeof newQuestStepBeacon);
 
   return html`
     <form
@@ -36,7 +48,6 @@ export function editQuestStepForm(state) {
               quest_index: newQuestStepQuest_index,
               type: newQuestStepType,
               instructions: newQuestStepInstructions,
-              quest: currentQuest.id,
               beacon: newQuestStepBeacon
             })
           );
@@ -111,13 +122,15 @@ export function editQuestStepForm(state) {
         <option value="">-- Choose one --</option>
         ${beaconList.results.map(o => {
           return html`
-            <option value=${o.id}>${o.name}</option>
+            <option value=${o.id} ?selected=${newQuestStepBeacon === o.id}
+              >${o.name}</option
+            >
           `;
         })}
       </select>
 
       <button submit class="full_width submit">
-        Create
+        Edit
       </button>
     </form>
   `;
