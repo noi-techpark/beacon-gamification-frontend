@@ -14,6 +14,7 @@ import { createQuestStepForm } from "./components/createQuestStepForm";
 import { createQuestForm } from "./components/createQuestForm";
 import { editQuestForm } from "./components/editQuestForm";
 import { questStyle } from "./questStyle";
+import { editQuestStepForm } from "./components/editQuestStepForm";
 
 class Quest extends connect(store)(LitElement) {
   constructor() {
@@ -22,6 +23,7 @@ class Quest extends connect(store)(LitElement) {
     this.createQuestForm = createQuestForm.bind(this);
     this.editQuestForm = editQuestForm.bind(this);
     this.createQuestStepForm = createQuestStepForm.bind(this);
+    this.editQuestStepForm = editQuestStepForm.bind(this);
   }
 
   static get styles() {
@@ -32,6 +34,7 @@ class Quest extends connect(store)(LitElement) {
     return {
       questList: { type: Array },
       currentQuestId: { type: Number },
+      currentQuest: { type: Object },
       currentQuestStep: { type: Object }
     };
   }
@@ -41,9 +44,10 @@ class Quest extends connect(store)(LitElement) {
       this.questList = questReducer.questList.results;
     }
     if (questReducer.currentQuestStep) {
-      console.log(questReducer.currentQuestStep);
-
       this.currentQuestStep = { ...questReducer.currentQuestStep };
+    }
+    if (questReducer.currentQuest) {
+      this.currentQuest = { ...questReducer.currentQuest };
     }
     if (questReducer.currentQuestId) {
       this.currentQuestId = questReducer.currentQuestId;
@@ -59,10 +63,6 @@ class Quest extends connect(store)(LitElement) {
   }
 
   render() {
-    const selected_quest = this.currentQuestId
-      ? this.questList.find(o => o.id === this.currentQuestId)
-      : {};
-
     return html`
       <div class="quest_inspector_container">
         <div class="quest_list">
@@ -75,7 +75,9 @@ class Quest extends connect(store)(LitElement) {
             return html`
               <div
                 class=${`quest_list__element ${
-                  o.id === selected_quest.id ? "element_active" : ""
+                  this.currentQuest && o.id === this.currentQuest.id
+                    ? "element_active"
+                    : ""
                 }`}
               >
                 <p
@@ -125,8 +127,8 @@ class Quest extends connect(store)(LitElement) {
                 </button>
               `
             : null}
-          ${selected_quest.steps
-            ? selected_quest.steps
+          ${this.currentQuest
+            ? this.currentQuest.steps
                 .sort((a, b) => a.quest_index - b.quest_index)
                 .map(o => {
                   return html`
@@ -151,6 +153,7 @@ class Quest extends connect(store)(LitElement) {
                         <button
                           @click=${() => {
                             console.log("Edit");
+                            this.manageShowQuestModals(MODAL_IDS.editQuestStep);
                           }}
                         >
                           ✏️
@@ -213,8 +216,15 @@ class Quest extends connect(store)(LitElement) {
       ></x-modal>
       <x-modal
         modalId=${MODAL_IDS.createQuestStep}
-        title=${`Create quest step for ${selected_quest.name}`}
+        title=${`Create quest step for ${
+          this.currentQuest ? this.currentQuest.name : ""
+        }`}
         .contentFunction=${this.createQuestStepForm}
+      ></x-modal>
+      <x-modal
+        modalId=${MODAL_IDS.editQuestStep}
+        title=${`Edit quest step`}
+        .contentFunction=${this.editQuestStepForm}
       ></x-modal>
     `;
   }
