@@ -21,3 +21,30 @@ export const getBeaconListAction = pagination => async (dispatch, getState) => {
     console.error(e);
   }
 };
+
+export const createBeaconAction = body => async (dispatch, getState) => {
+  try {
+    await fetch(`${API_CONFIG.base_path}/beacons/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("auth-token")}`
+      },
+      body: JSON.stringify(body)
+    });
+
+    const requestBeaconList = await fetch(`${API_CONFIG.base_path}/beacons/`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("auth-token")}`
+      }
+    });
+    const beaconList = await requestBeaconList.json();
+
+    dispatch({
+      type: beaconsReducerActionTypes.CREATE_BEACON_SUCCESS,
+      payload: beaconList
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};

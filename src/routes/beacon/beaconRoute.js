@@ -4,12 +4,16 @@ import { getBeaconListAction } from "../../actions/beaconsActions";
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
 import { questStyle } from "../quest/questStyle";
+import { MODAL_IDS } from "../../utils/modals_ids";
+import { createBeaconForm } from "./components/createBeaconForm";
+import { showModalAction } from "../../actions/modalsActions";
 
 class BeaconRoute extends connect(store)(LitElement) {
   constructor() {
     super();
     this.beaconListResults = [];
     this.beaconList = {};
+    this.createBeaconForm = createBeaconForm.bind(this);
   }
 
   static get styles() {
@@ -69,13 +73,18 @@ class BeaconRoute extends connect(store)(LitElement) {
   async firstUpdated() {
     store.dispatch(getBeaconListAction());
   }
+
+  manageShowBeaconModals(id) {
+    store.dispatch(showModalAction(id));
+  }
+
   render() {
     return html`
       <div class="beacon__list">
         <button
           class="full_width"
           @click=${() => {
-            // this.manageShowQuestModals(MODAL_IDS.createQuestStep);
+            this.manageShowBeaconModals(MODAL_IDS.createBeacon);
           }}
         >
           ➕ Add beacon
@@ -119,6 +128,12 @@ class BeaconRoute extends connect(store)(LitElement) {
             : null}
         </div>
       </div>
+      <x-modal
+        modalId=${MODAL_IDS.createBeacon}
+        title="Add a beacon"
+        .contentFunction=${this.createBeaconForm}
+      >
+      </x-modal>
     `;
   }
 }
