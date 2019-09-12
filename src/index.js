@@ -29,6 +29,13 @@ class Root extends LitElement {
               <x-navbar></x-navbar>
             `
           : null}
+        ${this.current_route === "/"
+          ? html`
+              <h2 style="margin-left: 2rem;">
+                Hi, welcome to the quest creator.
+              </h2>
+            `
+          : null}
         ${this.current_route === "/login"
           ? html`
               <x-route-login></x-route-login>
