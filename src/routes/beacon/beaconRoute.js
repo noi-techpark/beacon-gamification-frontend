@@ -1,6 +1,9 @@
 import { html, LitElement, css } from "lit-element";
 import { connect } from "pwa-helpers";
-import { getBeaconListAction } from "../../actions/beaconsActions";
+import {
+  getBeaconListAction,
+  deleteBeaconAction
+} from "../../actions/beaconsActions";
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
 import { questStyle } from "../quest/questStyle";
@@ -22,13 +25,15 @@ class BeaconRoute extends connect(store)(LitElement) {
       questStyle,
       css`
         .beacon__list {
-          /* padding-top: 0.5rem; */
           width: 50%;
-          margin: 0 auto;
+          margin: 0 auto 3rem auto;
         }
 
         .beacon__list__element {
-          margin: 1rem 0;
+          padding: 1rem 0;
+          display: flex;
+          justify-content: space-between;
+          border-bottom: 1px solid #aeaeae;
         }
         .beacon__list__element p {
           padding: 0 0.5rem;
@@ -44,6 +49,7 @@ class BeaconRoute extends connect(store)(LitElement) {
           display: flex;
           align-items: center;
           justify-content: center;
+          margin-top: 2rem;
         }
         .pagination__container p {
           cursor: pointer;
@@ -93,7 +99,16 @@ class BeaconRoute extends connect(store)(LitElement) {
           return html`
             <div class="beacon__list__element">
               <p>${o.name} <span>${o.beacon_id}</span></p>
-              <hr />
+              <button
+                @click=${() => {
+                  const result = confirm("Want to delete?");
+                  if (result) {
+                    store.dispatch(deleteBeaconAction(o.id));
+                  }
+                }}
+              >
+                ❌
+              </button>
             </div>
           `;
         })}
