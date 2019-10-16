@@ -25,25 +25,25 @@ class BeaconRoute extends connect(store)(LitElement) {
       questStyle,
       css`
         .beacon__list {
-          width: 50%;
+          width: 1024px;
           margin: 0 auto 3rem auto;
         }
 
         .beacon__list__element {
-          padding: 1rem 0;
+          padding: 1rem;
           display: flex;
           justify-content: space-between;
-          border-bottom: 1px solid #aeaeae;
+          box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11),
+            0 1px 3px rgba(0, 0, 0, 0.08);
+          border: 1px solid rgba(50, 50, 93, 0.11);
+          border-radius: 4px;
+          margin-top: 0.5rem;
         }
         .beacon__list__element p {
           padding: 0 0.5rem;
         }
         .beacon__list__element p span {
-          display: inline-flex;
-          border: 1px solid #eaeaea;
-          height: 30px;
-          align-items: center;
-          padding: 0 0.5rem;
+          font-weight: bold;
         }
         .pagination__container {
           display: flex;
@@ -98,7 +98,9 @@ class BeaconRoute extends connect(store)(LitElement) {
         ${this.beaconListResults.map(o => {
           return html`
             <div class="beacon__list__element">
-              <p>${o.name} <span>${o.beacon_id}</span></p>
+              <p>
+                <span>Name</span>: ${o.name} <span>ID</span>: ${o.beacon_id}
+              </p>
               <button
                 @click=${() => {
                   const result = confirm("Want to delete?");
