@@ -5,26 +5,29 @@ export const questStyle = css`
     display: flex;
   }
   .quest_list {
-    width: 20%;
-    border-right: 1px solid #eaeaea;
+    width: calc(20% - 2rem);
+    margin-left: 1rem;
+    margin-right: 1rem;
   }
   .quest_list button {
     width: 100%;
   }
   p {
     margin: 0;
-    padding: 0 8px;
   }
   h3 {
     margin: 0.5rem 0 0 0;
-    padding: 0 8px;
+    padding: 0 1rem;
   }
   .element_active {
     background-color: #eaeaea;
   }
   .quest_list__element {
-    padding: 16px 0;
-    border-bottom: 1px solid #eaeaea;
+    padding: 1rem;
+    border-radius: 4px;
+    margin-top: 0.5rem;
+    box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(50, 50, 93, 0.11);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -41,17 +44,18 @@ export const questStyle = css`
   }
   .quest_steps_list {
     width: 40%;
-    border-right: 1px solid #eaeaea;
   }
   .quest_steps_list button {
     width: 100%;
   }
   .quest_step {
-    padding: 16px 0;
-    border-bottom: 1px solid #eaeaea;
+    padding: 1rem;
+    border-radius: 4px;
+    border: 1px solid rgba(50, 50, 93, 0.11);
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-top: 0.5rem;
   }
   .quest_step__content {
     width: 80%;
@@ -61,9 +65,18 @@ export const questStyle = css`
     width: auto;
   }
   .quest_steps_details {
-    width: 40%;
+    width: calc(40% - 1rem);
+    margin-left: 1rem;
+  }
+  .quest_steps_details p {
+    padding: 0 1rem;
+  }
+  .quest_steps_details p small {
+    color: rgba(0, 0, 0, 0.5);
+    margin-top: 1.5rem;
+    display: block;
   }
   .quest_steps_details hr {
-    border-bottom-color: 1px solid #eaeaea;
+    border-bottom: 1px solid rgba(50, 50, 93, 0.11);
   }
 `;

@@ -182,25 +182,25 @@ class Quest extends connect(store)(LitElement) {
                   <h3>Step details:</h3>
                   <p class=""><small>beacon</small></p>
                   <p>${this.currentQuestStep.beacon || "-- Empty --"}</p>
-                  <hr />
+
                   <p><small>quest_index</small></p>
                   <p>${this.currentQuestStep.quest_index || "-- Empty --"}</p>
-                  <hr />
+
                   <p><small>type</small></p>
                   <p>${this.currentQuestStep.type || "-- Empty --"}</p>
-                  <hr />
+
                   <p><small>name</small></p>
                   <p>${this.currentQuestStep.name || "-- Empty --"}</p>
-                  <hr />
+                  
                   <p><small>instructions</small></p>
                   <p>${this.currentQuestStep.instructions || "-- Empty --"}</p>
-                  <hr />
+                  
                   <p><small>properties</small></p>
                   <p>${this.currentQuestStep.properties || "-- Empty --"}</p>
-                  <hr />
+                  
                   <p><small>value_points</small></p>
                   <p>${this.currentQuestStep.value_points || "-- Empty --"}</p>
-                  <hr />
+                  
                 </div>
               `
             : null}
