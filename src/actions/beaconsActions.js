@@ -4,7 +4,7 @@ import { beaconsReducerActionTypes } from "../reducers/beaconsReducer";
 export const getBeaconListAction = pagination => async (dispatch, getState) => {
   try {
     const requestBeaconList = await fetch(
-      `${API_CONFIG.base_path}/beacons/${pagination ? `?${pagination}` : ""}`,
+      `${API_CONFIG.base_path}/beacons/${pagination ? `?${pagination}/` : ""}`,
       {
         headers: {
           Authorization: `Token ${localStorage.getItem("auth-token")}`
@@ -51,7 +51,7 @@ export const createBeaconAction = body => async (dispatch, getState) => {
 
 export const deleteBeaconAction = id => async (dispatch, getState) => {
   try {
-    await fetch(`${API_CONFIG.base_path}/beacons/${id}`, {
+    await fetch(`${API_CONFIG.base_path}/beacons/${id}/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",

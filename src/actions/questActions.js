@@ -29,7 +29,7 @@ export const createQuestAction = body => async (dispatch, getState) => {
 
 export const editQuestAction = (id, body) => async (dispatch, getState) => {
   try {
-    await fetch(`${API_CONFIG.base_path}/quest/${id}`, {
+    await fetch(`${API_CONFIG.base_path}/quest/${id}/`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export const editQuestAction = (id, body) => async (dispatch, getState) => {
 
 export const deleteQuestAction = id => async (dispatch, getState) => {
   try {
-    await fetch(`${API_CONFIG.base_path}/quest/${id}`, {
+    await fetch(`${API_CONFIG.base_path}/quest/${id}/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
@@ -138,7 +138,7 @@ export const createQuestStepAction = body => async (dispatch, getState) => {
 
 export const editQuestStepAction = (id, body) => async (dispatch, getState) => {
   try {
-    await fetch(`${API_CONFIG.base_path}/quest-steps/${id}`, {
+    await fetch(`${API_CONFIG.base_path}/quest-steps/${id}/`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -164,7 +164,7 @@ export const editQuestStepAction = (id, body) => async (dispatch, getState) => {
 
 export const deleteQuestStepAction = id => async (dispatch, getState) => {
   try {
-    await fetch(`${API_CONFIG.base_path}/quest-steps/${id}`, {
+    await fetch(`${API_CONFIG.base_path}/quest-steps/${id}/`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
