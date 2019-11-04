@@ -7,6 +7,10 @@ export function editQuestForm(state) {
 
   let newQuestName = currentQuest.name;
   let newQuestPosition = currentQuest.position;
+  let newQuestDescription = currentQuest.description;
+  let newQuestEpilogue = currentQuest.epilogue;
+  let newQuestInstructions = currentQuest.instructions;
+
   return html`
     <form
       action=""
@@ -15,7 +19,10 @@ export function editQuestForm(state) {
         store.dispatch(
           editQuestAction(currentQuest.id, {
             name: newQuestName,
-            position: newQuestPosition
+            position: newQuestPosition,
+            description: newQuestDescription,
+            epilogue: newQuestEpilogue,
+            instructions: newQuestInstructions
           })
         );
       }}
@@ -36,6 +43,39 @@ export function editQuestForm(state) {
         }}
         type="position"
       />
+      <label>Instructions</label>
+      <textarea
+        @change=${e => {
+          newQuestInstructions = e.target.value;
+        }}
+        name=""
+        id=""
+        rows="10"
+      >
+${newQuestInstructions}</textarea
+      >
+      <label>Description</label>
+      <textarea
+        @change=${e => {
+          newQuestDescription = e.target.value;
+        }}
+        name=""
+        id=""
+        rows="10"
+      >
+${newQuestDescription}</textarea
+      >
+      <label>Epilogue</label>
+      <textarea
+        @change=${e => {
+          newQuestEpilogue = e.target.value;
+        }}
+        name=""
+        id=""
+        rows="10"
+      >
+${newQuestEpilogue}</textarea
+      >
       <button submit class="full_width submit">
         Edit
       </button>

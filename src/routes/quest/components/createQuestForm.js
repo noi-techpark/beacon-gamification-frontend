@@ -5,6 +5,10 @@ import { createQuestAction } from "../../../actions/questActions";
 export function createQuestForm() {
   let newQuestName = "";
   let newQuestPosition = "";
+  let newQuestDescription = "";
+  let newQuestEpilogue = "";
+  let newQuestInstructions = "";
+
   return html`
     <form
       action=""
@@ -13,7 +17,10 @@ export function createQuestForm() {
         store.dispatch(
           createQuestAction({
             name: newQuestName,
-            position: newQuestPosition
+            position: newQuestPosition,
+            description: newQuestDescription,
+            epilogue: newQuestEpilogue,
+            instructions: newQuestInstructions
           })
         );
       }}
@@ -23,14 +30,36 @@ export function createQuestForm() {
         @change=${e => {
           newQuestName = e.target.value;
         }}
-        type="name"
+        type="text"
       />
       <label>Position</label>
       <input
         @change=${e => {
           newQuestPosition = e.target.value;
         }}
-        type="position"
+        type="text"
+      />
+      <!-- new -->
+      <label>Instructions</label>
+      <input
+        @change=${e => {
+          newQuestInstructions = e.target.value;
+        }}
+        type="text"
+      />
+      <label>Description</label>
+      <input
+        @change=${e => {
+          newQuestDescription = e.target.value;
+        }}
+        type="text"
+      />
+      <label>Epilogue</label>
+      <input
+        @change=${e => {
+          newQuestEpilogue = e.target.value;
+        }}
+        type="text"
       />
       <button submit class="full_width submit">
         Create
