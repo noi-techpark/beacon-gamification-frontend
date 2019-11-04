@@ -200,6 +200,9 @@ class Quest extends connect(store)(LitElement) {
                   
                   <p><small>value_points</small></p>
                   <p>${this.currentQuestStep.value_points || "-- Empty --"}</p>
+
+                  <p><small>value_points_error</small></p>
+                  <p>${this.currentQuestStep.value_points_error || "-- Empty --"}</p>
                   
                 </div>
               `
