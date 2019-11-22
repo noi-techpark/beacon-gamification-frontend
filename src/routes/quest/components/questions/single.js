@@ -60,7 +60,6 @@ ${this.data.question}</textarea
             Add Answer
           </button>
         </div>
-        ${JSON.stringify(this.data)}
       </x-base-question>
     `;
   }

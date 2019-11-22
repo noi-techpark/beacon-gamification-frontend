@@ -16,7 +16,7 @@ export default class BaseQuestion extends LitElement {
 
   static get styles() {
     return css`
-      .questionForm {
+      :host {
         border: 1px solid gray;
         padding: 5px;
       }
@@ -28,6 +28,10 @@ export default class BaseQuestion extends LitElement {
       .header * {
         margin: 0px;
         display: inline-block;
+      }
+      :host {
+        display: flex;
+        flex-direction: column;
       }
     `;
   }
@@ -49,13 +53,53 @@ export default class BaseQuestion extends LitElement {
 
   render() {
     return html`
-      <div class="questionForm">
-        <div class="header">
-          <h3>${this.title}</h3>
-          <span @click=${this.handleRemove}>❌</span>
-        </div>
-        <slot></slot>
+      <div class="header">
+        <h3>${this.title}</h3>
+        <span @click=${this.handleRemove}>❌</span>
       </div>
+      <slot></slot>
+
+      <label for="finder">Finder</label>
+      <input
+        name="finder"
+        type="string"
+        @input="${e => {
+          this.data.finder = e.target.value;
+          this.requestUpdate();
+        }}"
+      />
+
+      <label for="wrongAnswerMessage">Wrong Answer Message </label>
+      <input
+        name="wrongAnswerMessage"
+        type="string"
+        @input=${e => {
+          this.data.wrongAnswerMessage = e.target.value;
+          this.requestUpdate();
+        }}
+      />
+
+      <label for="correctAnswerMessage">Correct Answer Message </label>
+      <input
+        name="correctAnswerMessage"
+        type="string"
+        @input=${e => {
+          this.data.correctAnswerMessage = e.target.value;
+          this.requestUpdate();
+        }}
+      />
+
+      <label for="help">Help </label>
+      <input
+        name="help"
+        type="string"
+        @input=${e => {
+          this.data.help = e.target.value;
+          this.requestUpdate();
+        }}
+      />
+
+      JSON: ${JSON.stringify(this.data)}
     `;
   }
 }
