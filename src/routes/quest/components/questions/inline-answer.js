@@ -42,7 +42,7 @@ export default class InlineAnswer extends LitElement {
     );
   }
 
-  onSelect(e) {
+  onSelect() {
     this.dispatchEvent(
       new CustomEvent("selectAnswer", { detail: { value: this.value } })
     );
