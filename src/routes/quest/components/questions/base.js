@@ -43,12 +43,16 @@ export default class BaseQuestion extends LitElement {
     this.requestUpdate();
   }
 
+  handleRemove() {
+    this.dispatchEvent(new CustomEvent("remove", { detail: { boh: "ok" } }));
+  }
+
   render() {
     return html`
       <div class="questionForm">
         <div class="header">
           <h3>${this.title}</h3>
-          <p>❌</p>
+          <span @click=${this.handleRemove}>❌</span>
         </div>
         <slot></slot>
       </div>

@@ -14,7 +14,7 @@ class Single extends BaseQuestion {
 
   render() {
     return html`
-      <x-base-question title="Single Choice">
+      <x-base-question title="Single Choice" @remove=${this.handleRemove}>
         <div class="content">
           <label for="question">Question </label>
           <textarea

@@ -36,6 +36,9 @@ class QuestionForm extends LitElement {
                 <x-single
                   data="${JSON.stringify(question)}"
                   @data=${e => this.editQuestion(i, e.detail.data)}
+                  @remove=${() => {
+                    this.questions = this.questions.filter((_, j) => i !== j);
+                  }}
                 ></x-single>
               `;
             default:
