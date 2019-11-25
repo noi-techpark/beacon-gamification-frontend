@@ -37,6 +37,7 @@ class Modal extends connect(store)(LitElement) {
         }
         .modal_content {
           width: 400px;
+          max-height: 80vh;
           position: absolute;
           top: 50%;
           left: 50%;
@@ -45,6 +46,7 @@ class Modal extends connect(store)(LitElement) {
           min-height: 500px;
           box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
           padding: 16px;
+          overflow: scroll;
         }
         .modal_content__header {
           display: flex;
