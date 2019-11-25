@@ -23,8 +23,8 @@ class QuestionForm extends LitElement {
   }
 
   addQuestion() {
-    const type = this.shadowRoot.querySelector("select").value;
-    this.questions = [...this.questions, { type }];
+    const kind = this.shadowRoot.querySelector("select").value;
+    this.questions = [...this.questions, { kind }];
     this.updateData();
   }
 
@@ -63,7 +63,7 @@ class QuestionForm extends LitElement {
               `;
             default:
               return html`
-                <p>Form for ${question.type} not implemented yet</p>
+                <p>Form for ${question.kind} not implemented yet</p>
               `;
           }
         })}
