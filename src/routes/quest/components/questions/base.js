@@ -84,14 +84,14 @@ export default class BaseQuestion extends LitElement {
           this.updateData();
         }}
       >
-${this.data.question}</textarea
+${this.data.question || ""}</textarea
       >
       ${this.renderAnswers()}
 
       <label for="finder">Finder</label>
       <input
         name="finder"
-        value=${this.data.finder}
+        value=${this.data.finder || ""}
         type="string"
         @input="${e => {
           this.data.finder = e.target.value;
@@ -102,7 +102,7 @@ ${this.data.question}</textarea
       <label for="wrongAnswerMessage">Wrong Answer Message </label>
       <input
         name="wrongAnswerMessage"
-        value=${this.data.wrongAnswerMessage}
+        value=${this.data.wrongAnswerMessage || ""}
         type="string"
         @input=${e => {
           this.data.wrongAnswerMessage = e.target.value;
@@ -113,7 +113,7 @@ ${this.data.question}</textarea
       <label for="correctAnswerMessage">Correct Answer Message </label>
       <input
         name="correctAnswerMessage"
-        value=${this.data.correctAnswerMessage}
+        value=${this.data.correctAnswerMessage || ""}
         type="string"
         @input=${e => {
           this.data.correctAnswerMessage = e.target.value;
@@ -124,7 +124,7 @@ ${this.data.question}</textarea
       <label for="help">Help </label>
       <input
         name="help"
-        value=${this.data.help}
+        value=${this.data.help || ""}
         type="string"
         @input=${e => {
           this.data.help = e.target.value;
