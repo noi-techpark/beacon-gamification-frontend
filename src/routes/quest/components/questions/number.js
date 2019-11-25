@@ -2,10 +2,10 @@ import { html } from "lit-element";
 import BaseQuestion from "./base";
 import "./inline-answer";
 
-class Text extends BaseQuestion {
+class Number extends BaseQuestion {
   constructor() {
     super();
-    this.title = "Text question";
+    this.title = "Numeric question";
   }
 
   renderAnswers() {
@@ -15,10 +15,11 @@ class Text extends BaseQuestion {
         <input
           @input=${e => this.setAnswer(e.target.value)}
           value=${this.data.answer}
+          type="number"
         />
       </div>
     `;
   }
 }
 
-customElements.define("x-text", Text);
+customElements.define("x-number", Number);

@@ -58,6 +58,11 @@ export default class BaseQuestion extends LitElement {
     this.requestUpdate();
   }
 
+  setAnswer(answer) {
+    this.data.answer = answer;
+    this.updateData();
+  }
+
   renderAnswers() {
     return html`
       <p>renderAnswers()</p>
