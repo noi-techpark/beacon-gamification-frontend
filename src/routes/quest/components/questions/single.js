@@ -14,19 +14,21 @@ class Single extends BaseQuestion {
 
   render() {
     return html`
-      <x-base-question title="Single Choice" @remove=${this.handleRemove}>
+      <x-base-question
+        title="Single Choice"
+        @remove=${this.handleRemove}
+        data=${JSON.stringify(this.data)}
+        @data=${() => {
+          this.dispatchEvent(
+            new CustomEvent("data", {
+              detail: {
+                data: this.getData()
+              }
+            })
+          );
+        }}
+      >
         <div class="content">
-          <label for="question">Question </label>
-          <textarea
-            name="question"
-            rows="4"
-            @input=${e => {
-              this.data.question = e.target.value;
-              this.updateData();
-            }}
-          >
-${this.data.question}</textarea
-          >
           <label>Answers </label>
 
           ${this.data.options.map(
@@ -54,7 +56,7 @@ ${this.data.question}</textarea
           <button
             @click=${() => {
               this.data.options.push("");
-              this.requestUpdate();
+              this.updateData();
             }}
           >
             Add Answer

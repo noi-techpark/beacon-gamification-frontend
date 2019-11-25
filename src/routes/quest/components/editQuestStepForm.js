@@ -85,16 +85,14 @@ export function editQuestStepForm(state) {
       <label>Properties <small>content of the step</small></label>
 
       <question-form
-        data=${{}}
-        @on-data-change=${newData => {
-          console.log("newData", newData);
-          newQuestStepProperties = newData;
+        questions=${newQuestStepProperties}
+        @data=${e => {
+          newQuestStepProperties = JSON.stringify(e.detail.questions);
+          this.requestUpdate();
         }}
-      />
+      ></question-form>
 
-
-${newQuestStepProperties}</textarea
-      >
+      <textarea>${newQuestStepProperties}</textarea>
 
       <label>Value Points</label>
       <input

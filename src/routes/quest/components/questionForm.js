@@ -2,15 +2,22 @@ import { LitElement, html } from "lit-element";
 import "./questions/single";
 
 class QuestionForm extends LitElement {
-  constructor() {
-    super();
-    this.questions = this.questions ? this.questions : [];
+  connectedCallback() {
+    super.connectedCallback();
+
+    if (!Array.isArray(this.questions)) {
+      if (this.questions) {
+        this.questions = [this.questions];
+      } else {
+        this.questions = [];
+      }
+    }
+
+    this.requestUpdate();
   }
 
   static get properties() {
     return {
-      //   data: { type: Object },
-      onDataChange: { type: Function },
       questions: { type: Array }
     };
   }
@@ -18,11 +25,22 @@ class QuestionForm extends LitElement {
   addQuestion() {
     const type = this.shadowRoot.querySelector("select").value;
     this.questions = [...this.questions, { type }];
-    this.requestUpdate();
+    this.updateData();
   }
 
   editQuestion(i, data) {
     this.questions[i] = data;
+    this.updateData();
+  }
+
+  updateData() {
+    this.dispatchEvent(
+      new CustomEvent("data", {
+        detail: {
+          questions: this.questions
+        }
+      })
+    );
     this.requestUpdate();
   }
 
@@ -30,12 +48,14 @@ class QuestionForm extends LitElement {
     return html`
       <div>
         ${this.questions.map((question, i) => {
-          switch (question.type) {
+          switch (question.kind) {
             case "single":
               return html`
                 <x-single
                   data="${JSON.stringify(question)}"
-                  @data=${e => this.editQuestion(i, e.detail.data)}
+                  @data=${e => {
+                    this.editQuestion(i, e.detail.data);
+                  }}
                   @remove=${() => {
                     this.questions = this.questions.filter((_, j) => i !== j);
                   }}
@@ -54,13 +74,6 @@ class QuestionForm extends LitElement {
           <option>text</option>
         </select>
         <button @click=${this.addQuestion}>Add question</button>
-
-        <p>json generato:</p>
-        <textarea rows="10" cols="70" name="properties">
-        
-      ${JSON.stringify(this.questions)}
-        </textarea
-        >
       </div>
     `;
   }

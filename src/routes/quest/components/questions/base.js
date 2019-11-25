@@ -36,6 +36,11 @@ export default class BaseQuestion extends LitElement {
     `;
   }
 
+  getData() {
+    const baseData = this.shadowRoot.querySelector("x-base-question").data;
+    return { ...this.data, ...baseData };
+  }
+
   updateData() {
     this.dispatchEvent(
       new CustomEvent("data", {
@@ -57,49 +62,64 @@ export default class BaseQuestion extends LitElement {
         <h3>${this.title}</h3>
         <span @click=${this.handleRemove}>❌</span>
       </div>
+      <label for="question">Question </label>
+      <textarea
+        name="question"
+        rows="4"
+        @input=${e => {
+          this.data.question = e.target.value;
+          this.updateData();
+        }}
+      >
+${this.data.question}</textarea
+      >
       <slot></slot>
 
       <label for="finder">Finder</label>
       <input
         name="finder"
+        value=${this.data.finder}
         type="string"
         @input="${e => {
           this.data.finder = e.target.value;
-          this.requestUpdate();
+          this.updateData();
         }}"
       />
 
       <label for="wrongAnswerMessage">Wrong Answer Message </label>
       <input
         name="wrongAnswerMessage"
+        value=${this.data.wrongAnswerMessage}
         type="string"
         @input=${e => {
           this.data.wrongAnswerMessage = e.target.value;
-          this.requestUpdate();
+          this.updateData();
         }}
       />
 
       <label for="correctAnswerMessage">Correct Answer Message </label>
       <input
         name="correctAnswerMessage"
+        value=${this.data.correctAnswerMessage}
         type="string"
         @input=${e => {
           this.data.correctAnswerMessage = e.target.value;
-          this.requestUpdate();
+          this.updateData();
         }}
       />
 
       <label for="help">Help </label>
       <input
         name="help"
+        value=${this.data.help}
         type="string"
         @input=${e => {
           this.data.help = e.target.value;
-          this.requestUpdate();
+          this.updateData();
         }}
       />
 
-      JSON: ${JSON.stringify(this.data)}
+      <textarea>${JSON.stringify(this.data)}</textarea>
     `;
   }
 }
