@@ -36,11 +36,6 @@ export default class BaseQuestion extends LitElement {
     `;
   }
 
-  getData() {
-    const baseData = this.shadowRoot.querySelector("x-base-question").data;
-    return { ...this.data, ...baseData };
-  }
-
   updateData() {
     this.dispatchEvent(
       new CustomEvent("data", {
@@ -54,6 +49,12 @@ export default class BaseQuestion extends LitElement {
 
   handleRemove() {
     this.dispatchEvent(new CustomEvent("remove", { detail: { boh: "ok" } }));
+  }
+
+  renderAnswers() {
+    return html`
+      <p>renderAnswers()</p>
+    `;
   }
 
   render() {
@@ -73,7 +74,7 @@ export default class BaseQuestion extends LitElement {
       >
 ${this.data.question}</textarea
       >
-      <slot></slot>
+      ${this.renderAnswers()}
 
       <label for="finder">Finder</label>
       <input
