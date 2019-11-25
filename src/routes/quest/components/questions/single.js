@@ -1,4 +1,4 @@
-import { html, css } from "lit-element";
+import { html } from "lit-element";
 import BaseQuestion from "./base";
 import "./inline-answer";
 
@@ -8,21 +8,9 @@ class Single extends BaseQuestion {
     this.title = "Single choice";
   }
 
-  static get styles() {
-    return [
-      super.styles,
-      css`
-        .content {
-          display: flex;
-          flex-direction: column;
-        }
-      `
-    ];
-  }
-
   renderAnswers() {
     return html`
-      <div class="content">
+      <div class="answers">
         <label>Answers </label>
 
         ${this.data.options.map(
@@ -43,6 +31,7 @@ class Single extends BaseQuestion {
                 this.data.answer = selected;
                 this.updateData();
               }}
+              @deleteOption=${() => this.removeOptionAt(i)}
             >
             </inline-answer>
           `

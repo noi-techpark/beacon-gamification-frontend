@@ -17,6 +17,8 @@ export default class BaseQuestion extends LitElement {
   static get styles() {
     return css`
       :host {
+        display: flex;
+        flex-direction: column;
         border: 1px solid gray;
         padding: 5px;
       }
@@ -29,7 +31,7 @@ export default class BaseQuestion extends LitElement {
         margin: 0px;
         display: inline-block;
       }
-      :host {
+      .answers {
         display: flex;
         flex-direction: column;
       }
@@ -49,6 +51,11 @@ export default class BaseQuestion extends LitElement {
 
   handleRemove() {
     this.dispatchEvent(new CustomEvent("remove", { detail: { boh: "ok" } }));
+  }
+
+  removeOptionAt(i) {
+    this.data.options = this.data.options.filter((_, j) => i !== j);
+    this.requestUpdate();
   }
 
   renderAnswers() {

@@ -48,6 +48,12 @@ export default class InlineAnswer extends LitElement {
     );
   }
 
+  onDelete() {
+    this.dispatchEvent(
+      new CustomEvent("deleteOption", { detail: { value: this.value } })
+    );
+  }
+
   render() {
     return html`
       <div class="select">
@@ -74,7 +80,7 @@ export default class InlineAnswer extends LitElement {
       <div>
         <slot name="actions"></slot>
         <!-- a href="javascript:;">edit </a-->
-        <a href="javascript:;">delete </a>
+        <a href="javascript:;" @click=${this.onDelete}>delete </a>
       </div>
     `;
   }
