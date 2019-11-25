@@ -55,7 +55,7 @@ export default class BaseQuestion extends LitElement {
 
   removeOptionAt(i) {
     this.data.options = this.data.options.filter((_, j) => i !== j);
-    this.requestUpdate();
+    this.updateData();
   }
 
   setAnswer(answer) {
