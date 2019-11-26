@@ -2,6 +2,7 @@ import { LitElement, html } from "lit-element";
 import "./questions/single";
 import "./questions/text";
 import "./questions/number";
+import "./questions/multiple";
 
 class QuestionForm extends LitElement {
   connectedCallback() {
@@ -86,6 +87,18 @@ class QuestionForm extends LitElement {
                     this.questions = this.questions.filter((_, j) => i !== j);
                   }}
                 ></x-number>
+              `;
+            case "multiple":
+              return html`
+                <x-multiple
+                  data="${JSON.stringify(question)}"
+                  @data=${e => {
+                    this.editQuestion(i, e.detail.data);
+                  }}
+                  @remove=${() => {
+                    this.questions = this.questions.filter((_, j) => i !== j);
+                  }}
+                ></x-multiple>
               `;
             default:
               return html`
