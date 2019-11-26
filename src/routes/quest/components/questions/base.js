@@ -132,7 +132,8 @@ ${this.data.question || ""}</textarea
         }}
       />
 
-      <textarea>${JSON.stringify(this.data)}</textarea>
+      <!-- here to make debug easy -->
+      <!--textarea>${JSON.stringify(this.data)}</textarea-->
     `;
   }
 }

@@ -92,7 +92,8 @@ export function editQuestStepForm(state) {
         }}
       ></question-form>
 
-      <textarea>${newQuestStepProperties}</textarea>
+      <!-- here to make debug easy -->
+      <!-- textarea>${newQuestStepProperties}</textarea -->
 
       <label>Value Points</label>
       <input
