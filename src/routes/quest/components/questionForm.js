@@ -36,6 +36,11 @@ class QuestionForm extends LitElement {
     this.updateData();
   }
 
+  removeQuestion(i) {
+    this.questions = this.questions.filter((_, j) => i !== j);
+    this.updateData();
+  }
+
   updateData() {
     this.dispatchEvent(
       new CustomEvent("data", {
@@ -56,48 +61,32 @@ class QuestionForm extends LitElement {
               return html`
                 <x-single
                   data="${JSON.stringify(question)}"
-                  @data=${e => {
-                    this.editQuestion(i, e.detail.data);
-                  }}
-                  @remove=${() => {
-                    this.questions = this.questions.filter((_, j) => i !== j);
-                  }}
+                  @data=${e => this.editQuestion(i, e.detail.data)}
+                  @remove=${() => this.removeQuestion(i)}
                 ></x-single>
               `;
             case "text":
               return html`
                 <x-text
                   data="${JSON.stringify(question)}"
-                  @data=${e => {
-                    this.editQuestion(i, e.detail.data);
-                  }}
-                  @remove=${() => {
-                    this.questions = this.questions.filter((_, j) => i !== j);
-                  }}
+                  @data=${e => this.editQuestion(i, e.detail.data)}
+                  @remove=${() => this.removeQuestion(i)}
                 ></x-text>
               `;
             case "number":
               return html`
                 <x-number
                   data="${JSON.stringify(question)}"
-                  @data=${e => {
-                    this.editQuestion(i, e.detail.data);
-                  }}
-                  @remove=${() => {
-                    this.questions = this.questions.filter((_, j) => i !== j);
-                  }}
+                  @data=${e => this.editQuestion(i, e.detail.data)}
+                  @remove=${() => this.removeQuestion(i)}
                 ></x-number>
               `;
             case "multiple":
               return html`
                 <x-multiple
                   data="${JSON.stringify(question)}"
-                  @data=${e => {
-                    this.editQuestion(i, e.detail.data);
-                  }}
-                  @remove=${() => {
-                    this.questions = this.questions.filter((_, j) => i !== j);
-                  }}
+                  @data=${e => this.editQuestion(i, e.detail.data)}
+                  @remove=${() => this.removeQuestion(i)}
                 ></x-multiple>
               `;
             default:
