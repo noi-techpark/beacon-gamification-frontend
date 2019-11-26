@@ -50,7 +50,7 @@ export default class BaseQuestion extends LitElement {
   }
 
   handleRemove() {
-    this.dispatchEvent(new CustomEvent("remove", { detail: { boh: "ok" } }));
+    this.dispatchEvent(new CustomEvent("remove"));
   }
 
   removeOptionAt(i) {
