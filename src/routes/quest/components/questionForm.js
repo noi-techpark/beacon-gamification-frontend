@@ -45,7 +45,8 @@ class QuestionForm extends LitElement {
     this.dispatchEvent(
       new CustomEvent("data", {
         detail: {
-          questions: this.questions
+          questions:
+            this.questions.length === 1 ? this.questions[0] : this.questions
         }
       })
     );
