@@ -60,7 +60,7 @@ export default class InlineAnswer extends LitElement {
         <slot name="select">
           ${this.selected
             ? html`
-                <input type="radio" checked="true" } />
+                <input type="radio" checked="true" />
               `
             : html`
                 <input type="radio" @input=${this.onSelect} />
