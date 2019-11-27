@@ -23,8 +23,6 @@ export function editQuestStepForm(state) {
     : "";
   let newQuestStepBeacon = currentQuestStep ? currentQuestStep.beacon : "";
 
-  console.log(newQuestStepProperties);
-
   return html`
     <form
       action=""
