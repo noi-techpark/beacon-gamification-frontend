@@ -1,6 +1,7 @@
 import { html } from "lit-html";
 import { editQuestStepAction } from "../../../actions/questActions";
 import { store } from "../../../createStore";
+import "./questionForm";
 
 export function editQuestStepForm(state) {
   const { beaconList } = state.beaconsReducer;
@@ -80,15 +81,17 @@ export function editQuestStepForm(state) {
       />
 
       <label>Properties <small>content of the step</small></label>
-      <textarea
-        rows="4"
-        @keyup=${e => {
-          newQuestStepProperties = e.target.value;
+
+      <question-form
+        questions=${newQuestStepProperties}
+        @data=${e => {
+          newQuestStepProperties = JSON.stringify(e.detail.questions);
+          this.requestUpdate();
         }}
-        name="properties"
-      >
-${newQuestStepProperties}</textarea
-      >
+      ></question-form>
+
+      <!-- here to make debug easy -->
+      <!-- textarea>${newQuestStepProperties}</textarea -->
 
       <label>Value Points</label>
       <input
