@@ -26,7 +26,12 @@ class QuestionForm extends LitElement {
   }
 
   addQuestion() {
-    const kind = this.shadowRoot.querySelector("select").value;
+    const kindSelectElement = this.shadowRoot.querySelector("select");
+    if (!kindSelectElement) {
+      console.error("Select for question kind found");
+      return;
+    }
+    const kind = kindSelectElement.value;
     this.questions = [...this.questions, { kind }];
     this.updateData();
   }
