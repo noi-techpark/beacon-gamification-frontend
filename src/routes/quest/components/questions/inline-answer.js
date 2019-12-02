@@ -1,6 +1,12 @@
 import { LitElement, html, css } from "lit-element";
+import { handleEvent } from "../../../../utils/components_utils";
 
 export default class InlineAnswer extends LitElement {
+  constructor() {
+    super();
+    this.handleEvent = handleEvent;
+  }
+
   static get properties() {
     return {
       value: { type: String },
@@ -36,24 +42,6 @@ export default class InlineAnswer extends LitElement {
     `;
   }
 
-  onInput(e) {
-    this.dispatchEvent(
-      new CustomEvent("data", { detail: { value: e.target.value } })
-    );
-  }
-
-  onSelect() {
-    this.dispatchEvent(
-      new CustomEvent("selectAnswer", { detail: { value: this.value } })
-    );
-  }
-
-  onDelete() {
-    this.dispatchEvent(
-      new CustomEvent("deleteOption", { detail: { value: this.value } })
-    );
-  }
-
   render() {
     return html`
       <div class="select">
@@ -63,7 +51,10 @@ export default class InlineAnswer extends LitElement {
                 <input type="radio" checked="true" />
               `
             : html`
-                <input type="radio" @input=${this.onSelect} />
+                <input
+                  type="radio"
+                  @input=${() => this.handleEvent("selectAnswer", this.value)}
+                />
               `}
         </slot>
       </div>
@@ -73,14 +64,18 @@ export default class InlineAnswer extends LitElement {
             type="text"
             value="${this.value}"
             class="defaultInput"
-            @input=${this.onInput}
+            @input=${e => this.handleEvent("data", e.target.value)}
           />
         </slot>
       </div>
       <div>
         <slot name="actions"></slot>
         <!-- a href="javascript:;">edit </a-->
-        <a href="javascript:;" @click=${this.onDelete}>delete </a>
+        <a
+          href="javascript:;"
+          @click=${() => this.handleEvent("deleteOption", this.data)}
+          >delete
+        </a>
       </div>
     `;
   }
