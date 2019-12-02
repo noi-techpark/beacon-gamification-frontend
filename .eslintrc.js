@@ -24,6 +24,7 @@ module.exports = {
     "object-curly-newline": 0,
     "prettier/prettier": "error",
     "no-console": 0,
-    "class-methods-use-this": 0
+    "class-methods-use-this": 0,
+    "consistent-return": 0
   }
 };
