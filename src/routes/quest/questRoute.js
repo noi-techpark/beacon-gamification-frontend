@@ -6,7 +6,8 @@ import {
   deleteQuestStepAction,
   getQuestListAction,
   selectQuestAction,
-  selectQuestStepAction
+  selectQuestStepAction,
+  editQuestStepAction
 } from "../../actions/questActions";
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
@@ -16,6 +17,8 @@ import { createQuestStepForm } from "./components/createQuestStepForm";
 import { editQuestForm } from "./components/editQuestForm";
 import { editQuestStepForm } from "./components/editQuestStepForm";
 import { questStyle } from "./questStyle";
+
+import "../../components/sortableList";
 
 class Quest extends connect(store)(LitElement) {
   constructor() {
@@ -128,52 +131,66 @@ class Quest extends connect(store)(LitElement) {
                 </button>
               `
             : null}
-          ${this.currentQuest
-            ? this.currentQuest.steps
-                .sort((a, b) => a.quest_index - b.quest_index)
-                .map(o => {
-                  return html`
-                    <div
-                      class=${`quest_step ${
-                        o.id === this.currentQuestStep.id
-                          ? "element_active"
-                          : ""
-                      }`}
+
+          <x-sortable-list
+            .data=${this.currentQuest
+              ? this.currentQuest.steps.sort(
+                  (a, b) => a.quest_index - b.quest_index
+                )
+              : []}
+            .renderElement=${o => {
+              return html`
+                <div
+                  class=${`quest_step ${
+                    o.id === this.currentQuestStep.id ? "element_active" : ""
+                  }`}
+                >
+                  <div
+                    class="quest_step__content"
+                    @click=${() => {
+                      store.dispatch(selectQuestStepAction(o.id));
+                    }}
+                  >
+                    <p>Step ${o.quest_index}</p>
+                    <p>Name: ${o.name}</p>
+                    <p>Points: ${o.value_points}</p>
+                  </div>
+                  <div>
+                    <button
+                      @click=${() => {
+                        store.dispatch(selectQuestStepAction(o.id));
+                        this.manageShowQuestModals(MODAL_IDS.editQuestStep);
+                      }}
                     >
-                      <div
-                        class="quest_step__content"
-                        @click=${() => {
-                          store.dispatch(selectQuestStepAction(o.id));
-                        }}
-                      >
-                        <p>Step ${o.quest_index}</p>
-                        <p>Name: ${o.name}</p>
-                        <p>Points: ${o.value_points}</p>
-                      </div>
-                      <div>
-                        <button
-                          @click=${() => {
-                            store.dispatch(selectQuestStepAction(o.id));
-                            this.manageShowQuestModals(MODAL_IDS.editQuestStep);
-                          }}
-                        >
-                          ✏️
-                        </button>
-                        <button
-                          @click=${() => {
-                            const result = confirm("Want to delete?");
-                            if (result) {
-                              store.dispatch(deleteQuestStepAction(o.id));
-                            }
-                          }}
-                        >
-                          ❌
-                        </button>
-                      </div>
-                    </div>
-                  `;
-                })
-            : null}
+                      ✏️
+                    </button>
+                    <button
+                      @click=${() => {
+                        const result = confirm("Want to delete?");
+                        if (result) {
+                          store.dispatch(deleteQuestStepAction(o.id));
+                        }
+                      }}
+                    >
+                      ❌
+                    </button>
+                  </div>
+                </div>
+              `;
+            }}
+            .onOrderChange=${newSteps => {
+              this.currentQuest.steps = newSteps;
+              newSteps.forEach((step, i) => {
+                store.dispatch(
+                  editQuestStepAction(step.id, {
+                    quest_index: i + 1
+                  })
+                );
+              });
+            }}
+            css=${this.constructor.styles}
+          >
+          </x-sortable-list>
         </div>
         <div class="quest_steps_details">
           ${this.currentQuestStep && this.currentQuestStep.id
@@ -193,17 +210,16 @@ class Quest extends connect(store)(LitElement) {
                   <p>${this.currentQuestStep.name || "-- Empty --"}</p>
 
                   <p><small>instructions</small></p>
-                  <p>${this.currentQuestStep.instructions || "-- Empty --"}</p>
+                  <p>
+                    ${this.currentQuestStep.instructions || "-- Empty --"}
+                  </p>
 
                   <p><small>properties</small></p>
                   <p>${this.currentQuestStep.properties || "-- Empty --"}</p>
 
                   <p><small>value_points</small></p>
-                  <p>${this.currentQuestStep.value_points || "-- Empty --"}</p>
-
-                  <p><small>value_points_error</small></p>
                   <p>
-                    ${this.currentQuestStep.value_points_error || "-- Empty --"}
+                    ${this.currentQuestStep.value_points || "-- Empty --"}
                   </p>
                 </div>
               `
