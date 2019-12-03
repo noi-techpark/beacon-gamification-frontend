@@ -16,9 +16,9 @@ class Order extends BaseQuestion {
     e.target.parentElement.removeAttribute("draggable");
   }
 
-  removeOptionAt(i) {
-    this.data.options = this.data.options.filter((_, j) => i !== j);
-    this.data.answer = this.data.answer.filter((_, j) => i !== j);
+  removeOption(option) {
+    this.data.options = this.data.options.filter(el => el !== option);
+    this.data.answer = this.data.answer.filter(el => el !== option);
     this.updateData();
   }
 
@@ -28,11 +28,11 @@ class Order extends BaseQuestion {
         .data=${data}
         .onOrderChange=${onOrderChange}
         .defaultDraggable=${false}
-        .renderElement=${(option, i) => html`
+        .renderElement=${option => html`
           <inline-answer
             .value=${option}
             @data=${e => onElementEdit(e, option)}
-            @deleteOption=${() => this.removeOptionAt(i)}
+            @deleteOption=${() => this.removeOption(option)}
           >
             <span
               slot="select"
@@ -103,7 +103,7 @@ class Order extends BaseQuestion {
             this.updateData();
           }
         )}
-        >
+        
         </x-sortable-list>
       </div>
     `;
