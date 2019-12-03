@@ -62,7 +62,7 @@ export default class InlineAnswer extends LitElement {
         <slot name="content">
           <input
             type="text"
-            value="${this.value}"
+            .value="${this.value}"
             class="defaultInput"
             @input=${e => this.handleEvent("data", e.target.value)}
           />

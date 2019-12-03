@@ -1,4 +1,5 @@
 import { html, LitElement } from "lit-element";
+import { ifDefined } from "lit-html/directives/if-defined";
 
 class SortableList extends LitElement {
   static get properties() {
@@ -6,7 +7,8 @@ class SortableList extends LitElement {
       data: { type: Array },
       renderElement: { type: Function },
       onOrderChange: { type: Function },
-      css: { type: String }
+      css: { type: String },
+      defaultDraggable: { type: Boolean }
     };
   }
 
@@ -46,7 +48,9 @@ class SortableList extends LitElement {
                     @dragstart=${e => this.onDragStart(e, el)}
                     @dragenter=${e => this.onDragEnter(e, el)}
                     @dragend=${() => this.onDragEnd()}
-                    draggable="true"
+                    draggable="${ifDefined(
+                      this.defaultDraggable !== false ? "true" : undefined
+                    )}"
                   >
                     ${this.renderElement(el)}
                   </div>
