@@ -33,6 +33,11 @@ class SortableList extends LitElement {
     this.onOrderChange(this.data);
   }
 
+  onDragOver(e) {
+    // disables "going back" animation
+    e.preventDefault();
+  }
+
   render() {
     return html`
       <style>
@@ -48,6 +53,7 @@ class SortableList extends LitElement {
                     @dragstart=${e => this.onDragStart(e, el)}
                     @dragenter=${e => this.onDragEnter(e, el)}
                     @dragend=${() => this.onDragEnd()}
+                    @dragover=${this.onDragOver}
                     draggable="${ifDefined(
                       this.defaultDraggable !== false ? "true" : undefined
                     )}"
