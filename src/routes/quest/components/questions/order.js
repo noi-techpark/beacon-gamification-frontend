@@ -22,7 +22,7 @@ class Order extends BaseQuestion {
     this.updateData();
   }
 
-  renderList(data, onOrderChange, onElementEdit) {
+  renderList(data, onOrderChange, onElementEdit, disabled = false) {
     return html`
       <x-sortable-list
         .data=${data}
@@ -33,6 +33,7 @@ class Order extends BaseQuestion {
             .value=${option}
             @data=${e => onElementEdit(e, option)}
             @deleteOption=${() => this.removeOption(option)}
+            .disabled=${disabled}
           >
             <span
               slot="select"
@@ -101,7 +102,8 @@ class Order extends BaseQuestion {
             this.data.options[optionsIndex] = newValue;
 
             this.updateData();
-          }
+          },
+          true
         )}
         
         </x-sortable-list>

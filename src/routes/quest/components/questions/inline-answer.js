@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "lit-element";
 import { handleEvent } from "../../../../utils/components_utils";
+import "../../../../components/auto-textarea";
 
 export default class InlineAnswer extends LitElement {
   constructor() {
@@ -10,7 +11,8 @@ export default class InlineAnswer extends LitElement {
   static get properties() {
     return {
       value: { type: String },
-      selected: { type: Boolean }
+      selected: { type: Boolean },
+      disabled: { type: Boolean }
     };
   }
 
@@ -34,10 +36,9 @@ export default class InlineAnswer extends LitElement {
       .content {
         flex: 1;
         padding: 0px 0px;
-      }
-      .defaultInput {
-        width: calc(100% - 4px);
-        height: calc(100% - 6px);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
       }
     `;
   }
@@ -58,14 +59,14 @@ export default class InlineAnswer extends LitElement {
               `}
         </slot>
       </div>
-      <div class="content">
+      <div class="content defaultInput">
         <slot name="content">
-          <input
-            type="text"
-            .value="${this.value}"
-            class="defaultInput"
-            @input=${e => this.handleEvent("data", e.target.value)}
-          />
+          <auto-textarea
+            .value=${this.value}
+            .onInput=${value => this.handleEvent("data", value)}
+            .disabled=${this.disabled}
+            style="flex:1;"
+          ></auto-textarea>
         </slot>
       </div>
       <div>
