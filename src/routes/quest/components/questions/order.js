@@ -8,6 +8,12 @@ class Order extends BaseQuestion {
     this.title = "Order question";
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.data.option = this.data.option || [];
+    this.data.answer = this.data.answer || [];
+  }
+
   mouseEnter(e) {
     e.target.parentElement.draggable = "true";
   }
