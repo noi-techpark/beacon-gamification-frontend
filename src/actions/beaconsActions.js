@@ -74,3 +74,36 @@ export const deleteBeaconAction = id => async (dispatch, getState) => {
     console.error(e);
   }
 };
+
+export const selectBeaconAction = id => {
+  return {
+    type: beaconsReducerActionTypes.SELECT_CURRENT_BEACON,
+    payload: id
+  };
+};
+
+export const editBeaconAction = (id, body) => async dispatch => {
+  try {
+    await fetch(`${API_CONFIG.base_path}/beacons/${id}/`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Token ${localStorage.getItem("auth-token")}`
+      },
+      body: JSON.stringify(body)
+    });
+    const requestBeaconList = await fetch(`${API_CONFIG.base_path}/beacons/`, {
+      headers: {
+        Authorization: `Token ${localStorage.getItem("auth-token")}`
+      }
+    });
+    const beaconList = await requestBeaconList.json();
+
+    dispatch({
+      type: beaconsReducerActionTypes.EDIT_BEACON_SUCCESS,
+      payload: beaconList
+    });
+  } catch (e) {
+    console.error(e);
+  }
+};

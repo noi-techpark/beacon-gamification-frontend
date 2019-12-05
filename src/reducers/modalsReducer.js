@@ -21,6 +21,7 @@ export const modalsReducer = (state = INITIAL_STATE, action) => {
     case questsReducerActionTypes.CREATE_QUEST_STEPS_SUCCESS:
     case questsReducerActionTypes.EDIT_QUEST_STEP_SUCCESS:
     case beaconsReducerActionTypes.CREATE_BEACON_SUCCESS:
+    case beaconsReducerActionTypes.EDIT_BEACON_SUCCESS:
       return { ...state, showModal: false, currentModal: "" };
     default:
       return state;

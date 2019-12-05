@@ -15,6 +15,9 @@ export const formStyle = css`
     height: 32px;
     padding: 0 8px;
   }
+  input:focus {
+    outline: none;
+  }
   textarea {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;

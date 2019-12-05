@@ -1,15 +1,17 @@
-import { html, LitElement, css } from "lit-element";
+import { css, html, LitElement } from "lit-element";
 import { connect } from "pwa-helpers";
 import {
+  deleteBeaconAction,
   getBeaconListAction,
-  deleteBeaconAction
+  selectBeaconAction
 } from "../../actions/beaconsActions";
+import { showModalAction } from "../../actions/modalsActions";
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
-import { questStyle } from "../quest/questStyle";
 import { MODAL_IDS } from "../../utils/modals_ids";
+import { questStyle } from "../quest/questStyle";
 import { createBeaconForm } from "./components/createBeaconForm";
-import { showModalAction } from "../../actions/modalsActions";
+import { editBeaconForm } from "./components/editBeaconForm";
 
 class BeaconRoute extends connect(store)(LitElement) {
   constructor() {
@@ -17,6 +19,7 @@ class BeaconRoute extends connect(store)(LitElement) {
     this.beaconListResults = [];
     this.beaconList = {};
     this.createBeaconForm = createBeaconForm.bind(this);
+    this.editBeaconForm = editBeaconForm.bind(this);
   }
 
   static get styles() {
@@ -101,16 +104,26 @@ class BeaconRoute extends connect(store)(LitElement) {
               <p>
                 <span>Name</span>: ${o.name} <span>ID</span>: ${o.beacon_id}
               </p>
-              <button
-                @click=${() => {
-                  const result = confirm("Want to delete?");
-                  if (result) {
-                    store.dispatch(deleteBeaconAction(o.id));
-                  }
-                }}
-              >
-                ❌
-              </button>
+              <div>
+                <button
+                  @click=${() => {
+                    store.dispatch(selectBeaconAction(o.id));
+                    this.manageShowBeaconModals(MODAL_IDS.editBeacon);
+                  }}
+                >
+                  ✏️
+                </button>
+                <button
+                  @click=${() => {
+                    const result = confirm("Want to delete?");
+                    if (result) {
+                      store.dispatch(deleteBeaconAction(o.id));
+                    }
+                  }}
+                >
+                  ❌
+                </button>
+              </div>
             </div>
           `;
         })}
@@ -149,6 +162,13 @@ class BeaconRoute extends connect(store)(LitElement) {
         modalId=${MODAL_IDS.createBeacon}
         title="Add a beacon"
         .contentFunction=${this.createBeaconForm}
+      >
+      </x-modal>
+
+      <x-modal
+        modalId=${MODAL_IDS.editBeacon}
+        title="Edit beacon"
+        .contentFunction=${this.editBeaconForm}
       >
       </x-modal>
     `;

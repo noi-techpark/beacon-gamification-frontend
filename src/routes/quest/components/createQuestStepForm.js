@@ -9,6 +9,7 @@ export function createQuestStepForm(state) {
   let newQuestStepName = "";
   let newQuestStepProperties = "";
   let newQuestStepValue_points = "";
+  let newQuestStepValue_points_error = "";
   let newQuestStepQuest_index = "";
   let newQuestStepType = "";
   let newQuestStepInstructions = "";
@@ -23,6 +24,7 @@ export function createQuestStepForm(state) {
           newQuestStepName &&
           newQuestStepProperties &&
           newQuestStepValue_points &&
+          newQuestStepValue_points_error &&
           newQuestStepQuest_index &&
           newQuestStepType &&
           newQuestStepInstructions &&
@@ -33,6 +35,7 @@ export function createQuestStepForm(state) {
               name: newQuestStepName,
               properties: newQuestStepProperties,
               value_points: newQuestStepValue_points,
+              value_points_error: newQuestStepValue_points_error,
               quest_index: newQuestStepQuest_index,
               type: newQuestStepType,
               instructions: newQuestStepInstructions,
@@ -89,6 +92,21 @@ export function createQuestStepForm(state) {
           newQuestStepValue_points = e.target.value;
         }}
         name="value_points"
+      />
+
+      <label>Error Value Points <small>(only negative)</small></label>
+      <input
+        value=${newQuestStepValue_points_error}
+        @input=${e => {
+          if (e.target.value > 0) {
+            e.target.style.border = "1px solid red";
+          } else {
+            e.target.style.border = "";
+          }
+          newQuestStepValue_points_error = e.target.value;
+        }}
+        type="number"
+        name="value_points_error"
       />
 
       <label>Quest Index <small>ordering number</small></label>

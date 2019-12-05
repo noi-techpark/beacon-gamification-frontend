@@ -3,5 +3,6 @@ export const MODAL_IDS = {
   createQuest: "createQuest",
   createQuestStep: "createQuestStep",
   editQuestStep: "editQuestStep",
-  createBeacon: "createBeacon"
+  createBeacon: "createBeacon",
+  editBeacon: "editBeacon"
 };
