@@ -10,13 +10,40 @@ class Login extends LitElement {
       formStyle,
       buttonStyle,
       css`
+        :host {
+          min-height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+        }
         .login {
           width: 300px;
-          margin: 0 auto;
+          padding-bottom: 10vh;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
         }
         button {
           margin-top: 0.5rem;
           width: 100%;
+        }
+        .logos {
+          width: 100%;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+        .logos > img {
+          align-self: center;
+          height: 100px;
+          width: auto;
+          max-width: 394px;
+          margin: 0 20px;
+        }
+        .logos > img.beacon {
+          height: 60px;
         }
       `
     ];
@@ -69,6 +96,11 @@ class Login extends LitElement {
           <input id="form-password" type="password" name="password" />
           <button type="submit">LOGIN</button>
         </form>
+      </div>
+      <div class="logos">
+        <img src="/assets/logo_beacon.svg" alt="Logo Beacon" class="beacon" />
+        <img src="/assets/logo.png" alt="Logo sudtirol" />
+        <img src="/assets/logo_noi.png" alt="Logo NOI techpark" />
       </div>
     `;
   }
