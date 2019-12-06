@@ -58,10 +58,16 @@ class Order extends BaseQuestion {
     `;
   }
 
+  addAnswer() {
+    this.data.options.push("");
+    this.data.answer.push("");
+    this.updateData();
+  }
+
   renderAnswers() {
     return html`
       <div class="answers">
-        <label>Answers in correct order </label>
+        <label>Answers in correct order</label>
         ${this.renderList(
           this.data.answer,
           newData => {
@@ -81,16 +87,12 @@ class Order extends BaseQuestion {
           }
         )}
         <button
-          @click=${() => {
-            this.data.options.push("");
-            this.data.answer.push("");
-            this.updateData();
-          }}
+          @click=${this.addAnswer}
         >
           Add Answer
         </button>
 
-        <label>Answers ordered as shown to the user </label>
+        <label>Answers ordered as shown to the user</label>
 
         ${this.renderList(
           this.data.options,

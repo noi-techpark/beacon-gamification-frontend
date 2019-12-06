@@ -40,6 +40,9 @@ export default class InlineAnswer extends LitElement {
         flex-direction: row;
         align-items: center;
       }
+      .content auto-textarea {
+        flex: 1;
+      }
     `;
   }
 
@@ -65,7 +68,6 @@ export default class InlineAnswer extends LitElement {
             .value=${this.value}
             .onInput=${value => this.handleEvent("data", value)}
             .disabled=${this.disabled}
-            style="flex:1;"
           ></auto-textarea>
         </slot>
       </div>

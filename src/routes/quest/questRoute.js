@@ -28,6 +28,7 @@ class Quest extends connect(store)(LitElement) {
     this.editQuestForm = editQuestForm.bind(this);
     this.createQuestStepForm = createQuestStepForm.bind(this);
     this.editQuestStepForm = editQuestStepForm.bind(this);
+    this.handleOnOrderChange = this.handleOnOrderChange.bind(this);
   }
 
   static get styles() {
@@ -66,6 +67,17 @@ class Quest extends connect(store)(LitElement) {
     store.dispatch(showModalAction(id));
   }
 
+  handleOnOrderChange(newSteps) {
+    this.currentQuest.steps = newSteps;
+    newSteps.forEach((step, i) => {
+      store.dispatch(
+        editQuestStepAction(step.id, {
+          quest_index: i + 1
+        })
+      );
+    });
+  }
+
   render() {
     return html`
       <div class="quest_inspector_container">
@@ -86,6 +98,7 @@ class Quest extends connect(store)(LitElement) {
               >
                 <p
                   @click=${() => {
+                    debugger;
                     store.dispatch(selectQuestAction(o.id));
                   }}
                 >
@@ -178,16 +191,7 @@ class Quest extends connect(store)(LitElement) {
                 </div>
               `;
             }}
-            .onOrderChange=${newSteps => {
-              this.currentQuest.steps = newSteps;
-              newSteps.forEach((step, i) => {
-                store.dispatch(
-                  editQuestStepAction(step.id, {
-                    quest_index: i + 1
-                  })
-                );
-              });
-            }}
+            .onOrderChange=${this.handleOnOrderChange}
             css=${this.constructor.styles}
           >
           </x-sortable-list>

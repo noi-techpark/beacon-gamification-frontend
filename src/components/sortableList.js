@@ -44,24 +44,22 @@ class SortableList extends LitElement {
         ${this.css}
       </style>
       ${this.renderElement && this.data
-        ? this.data
-            // .sort((a, b) => a.quest_index - b.quest_index)
-            .map(
-              el =>
-                html`
-                  <div
-                    @dragstart=${e => this.onDragStart(e, el)}
-                    @dragenter=${e => this.onDragEnter(e, el)}
-                    @dragend=${() => this.onDragEnd()}
-                    @dragover=${this.onDragOver}
-                    draggable="${ifDefined(
-                      this.defaultDraggable !== false ? "true" : undefined
-                    )}"
-                  >
-                    ${this.renderElement(el)}
-                  </div>
-                `
-            )
+        ? this.data.map(
+            el =>
+              html`
+                <div
+                  @dragstart=${e => this.onDragStart(e, el)}
+                  @dragenter=${e => this.onDragEnter(e, el)}
+                  @dragend=${() => this.onDragEnd()}
+                  @dragover=${this.onDragOver}
+                  draggable="${ifDefined(
+                    this.defaultDraggable !== false ? "true" : undefined
+                  )}"
+                >
+                  ${this.renderElement(el)}
+                </div>
+              `
+          )
         : null}
     `;
   }
