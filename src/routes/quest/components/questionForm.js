@@ -3,6 +3,7 @@ import "./questions/single";
 import "./questions/text";
 import "./questions/number";
 import "./questions/multiple";
+import "./questions/order";
 
 class QuestionForm extends LitElement {
   connectedCallback() {
@@ -94,6 +95,14 @@ class QuestionForm extends LitElement {
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-multiple>
+              `;
+            case "order":
+              return html`
+                <x-order
+                  data="${JSON.stringify(question)}"
+                  @data=${e => this.editQuestion(i, e.detail.data)}
+                  @remove=${() => this.removeQuestion(i)}
+                ></x-order>
               `;
             default:
               return html`
