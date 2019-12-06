@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "ps": "polymer serve",
-    "pb": "polymer build",
+    "pb": "polymer build && cp -r assets build/es5prod/",
     "ph": "polymer --help",
     "pi": "polymer init"
   },
