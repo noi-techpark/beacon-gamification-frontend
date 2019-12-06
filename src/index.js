@@ -23,35 +23,33 @@ class Root extends LitElement {
 
   render() {
     return html`
-      <div>
-        ${this.current_route !== "/login"
-          ? html`
-              <x-navbar></x-navbar>
-            `
-          : null}
-        ${this.current_route === "/"
-          ? html`
-              <h2 style="margin-left: 2rem;">
-                Hi, welcome to the quest creator.
-              </h2>
-            `
-          : null}
-        ${this.current_route === "/login"
-          ? html`
-              <x-route-login></x-route-login>
-            `
-          : null}
-        ${this.current_route === "/quests"
-          ? html`
-              <private-route><x-route-quests></x-route-quests></private-route>
-            `
-          : null}
-        ${this.current_route === "/beacons"
-          ? html`
-              <private-route><x-route-beacon></x-route-beacon></private-route>
-            `
-          : null}
-      </div>
+      ${this.current_route !== "/login"
+        ? html`
+            <x-navbar></x-navbar>
+          `
+        : null}
+      ${this.current_route === "/"
+        ? html`
+            <h2 style="margin-left: 2rem;">
+              Hi, welcome to the quest creator.
+            </h2>
+          `
+        : null}
+      ${this.current_route === "/login"
+        ? html`
+            <x-route-login></x-route-login>
+          `
+        : null}
+      ${this.current_route === "/quests"
+        ? html`
+            <private-route><x-route-quests></x-route-quests></private-route>
+          `
+        : null}
+      ${this.current_route === "/beacons"
+        ? html`
+            <private-route><x-route-beacon></x-route-beacon></private-route>
+          `
+        : null}
     `;
   }
 }
