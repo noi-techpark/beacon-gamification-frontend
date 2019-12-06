@@ -14,6 +14,8 @@ class SortableList extends LitElement {
 
   onDragStart(e, element) {
     this.dragged = element;
+    // this is needed by firefox
+    e.dataTransfer.setData("something", "nothing");
   }
 
   onDragEnter(e, element) {
