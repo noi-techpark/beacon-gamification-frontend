@@ -67,15 +67,6 @@ export function editQuestStepForm(state) {
         name="name"
       />
 
-      <label>Type</label>
-      <input
-        value=${newQuestStepType}
-        @keyup=${e => {
-          newQuestStepType = e.target.value;
-        }}
-        name="type"
-      />
-
       <label>Instructions <small>text of the step</small></label>
       <input
         value=${newQuestStepInstructions}
@@ -91,6 +82,9 @@ export function editQuestStepForm(state) {
         questions=${newQuestStepProperties}
         @data=${e => {
           newQuestStepProperties = JSON.stringify(e.detail.questions);
+          newQuestStepType = Array.isArray(e.detail.questions)
+            ? "multi"
+            : "question";
           this.requestUpdate();
         }}
       ></question-form>
