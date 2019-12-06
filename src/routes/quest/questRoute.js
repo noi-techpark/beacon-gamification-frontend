@@ -98,7 +98,6 @@ class Quest extends connect(store)(LitElement) {
               >
                 <p
                   @click=${() => {
-                    debugger;
                     store.dispatch(selectQuestAction(o.id));
                   }}
                 >
