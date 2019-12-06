@@ -25,6 +25,7 @@ module.exports = {
     "prettier/prettier": "error",
     "no-console": 0,
     "class-methods-use-this": 0,
-    "consistent-return": 0
+    "consistent-return": 0,
+    "no-unused-expressions": ["error", { allowShortCircuit: true }]
   }
 };

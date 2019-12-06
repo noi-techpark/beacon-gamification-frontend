@@ -27,7 +27,7 @@ class AutoTextarea extends LitElement {
   }
 
   handleInput(e) {
-    if (this.onInput) this.onInput(e.target.value);
+    this.onInput && this.onInput(e.target.value);
     this.setHeight();
   }
 
