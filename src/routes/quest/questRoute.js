@@ -200,30 +200,7 @@ class Quest extends connect(store)(LitElement) {
             ? html`
                 <div>
                   <h3>Step details:</h3>
-                  <p class=""><small>beacon</small></p>
-                  <p>${this.currentQuestStep.beacon || "-- Empty --"}</p>
-
-                  <p><small>quest_index</small></p>
-                  <p>${this.currentQuestStep.quest_index || "-- Empty --"}</p>
-
-                  <p><small>type</small></p>
-                  <p>${this.currentQuestStep.type || "-- Empty --"}</p>
-
-                  <p><small>name</small></p>
-                  <p>${this.currentQuestStep.name || "-- Empty --"}</p>
-
-                  <p><small>instructions</small></p>
-                  <p>
-                    ${this.currentQuestStep.instructions || "-- Empty --"}
-                  </p>
-
-                  <p><small>properties</small></p>
-                  <p>${this.currentQuestStep.properties || "-- Empty --"}</p>
-
-                  <p><small>value_points</small></p>
-                  <p>
-                    ${this.currentQuestStep.value_points || "-- Empty --"}
-                  </p>
+                  ${this.editQuestStepForm(store.getState())}
                 </div>
               `
             : null}
@@ -247,11 +224,6 @@ class Quest extends connect(store)(LitElement) {
           this.currentQuest ? this.currentQuest.name : ""
         }`}
         .contentFunction=${this.createQuestStepForm}
-      ></x-modal>
-      <x-modal
-        modalId=${MODAL_IDS.editQuestStep}
-        title=${`Edit quest step`}
-        .contentFunction=${this.editQuestStepForm}
       ></x-modal>
     `;
   }
