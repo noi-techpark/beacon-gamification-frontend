@@ -39,7 +39,7 @@ export function editBeaconForm(state) {
         type="text"
       />
       <button submit class="full_width submit">
-        Edit
+        Save
       </button>
     </form>
   `;
