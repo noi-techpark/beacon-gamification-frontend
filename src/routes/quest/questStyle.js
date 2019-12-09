@@ -67,16 +67,14 @@ export const questStyle = css`
   .quest_steps_details {
     width: calc(40% - 1rem);
     margin-left: 1rem;
+    padding: 1rem;
   }
-  .quest_steps_details p {
-    padding: 0 1rem;
+  .quest_steps_details form {
+    display: flex;
+    flex-direction: column;
   }
-  .quest_steps_details p small {
-    color: rgba(0, 0, 0, 0.5);
-    margin-top: 1.5rem;
-    display: block;
-  }
-  .quest_steps_details hr {
-    border-bottom: 1px solid rgba(50, 50, 93, 0.11);
+
+  .quest_steps_details h3 {
+    padding: 0px;
   }
 `;
