@@ -144,7 +144,7 @@ export function editQuestStepForm(state) {
       </select>
 
       <button submit class="full_width submit">
-        Edit
+        Save
       </button>
     </form>
   `;
