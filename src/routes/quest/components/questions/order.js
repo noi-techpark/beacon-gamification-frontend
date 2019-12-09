@@ -86,11 +86,8 @@ class Order extends BaseQuestion {
             this.updateData();
           }
         )}
-        <button
-          @click=${this.addAnswer}
-        >
-          Add Answer
-        </button>
+
+        ${this.renderAddOptioButton()}
 
         <label>Answers ordered as shown to the user</label>
 
