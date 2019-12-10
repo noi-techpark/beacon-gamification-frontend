@@ -4,6 +4,7 @@ import "./questions/text";
 import "./questions/number";
 import "./questions/multiple";
 import "./questions/order";
+import "./questions/image";
 
 class QuestionForm extends LitElement {
   connectedCallback() {
@@ -104,6 +105,14 @@ class QuestionForm extends LitElement {
                   @remove=${() => this.removeQuestion(i)}
                 ></x-order>
               `;
+            case "image":
+              return html`
+                <x-image
+                  data="${JSON.stringify(question)}"
+                  @data=${e => this.editQuestion(i, e.detail.data)}
+                  @remove=${() => this.removeQuestion(i)}
+                ></x-image>
+              `;
             default:
               return html`
                 <p>Form for ${question.kind} not implemented yet</p>
@@ -115,6 +124,7 @@ class QuestionForm extends LitElement {
           <option>multiple</option>
           <option>order</option>
           <option>text</option>
+          <option>image</option>
         </select>
         <button @click=${this.addQuestion}>Add question</button>
       </div>
