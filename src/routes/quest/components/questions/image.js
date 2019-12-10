@@ -3,12 +3,18 @@ import BaseQuestion from "./base";
 import "./inline-answer";
 import { API_CONFIG } from "../../../../config";
 import { handleEvent } from "../../../../utils/components_utils";
+import "../../../../components/loading-indicator";
 
 class ImageSelection extends BaseQuestion {
   constructor() {
     super();
     this.title = "Image selection";
     this.handleEvent = handleEvent;
+    this.isUploading = false;
+  }
+
+  static get properties() {
+    return { ...super.properties, isUploading: { type: Boolean } };
   }
 
   async addAnswer() {
@@ -18,9 +24,23 @@ class ImageSelection extends BaseQuestion {
   }
 
   async waitForImage() {
-    this.shadowRoot.querySelector("#imageInput").click();
     return new Promise((resolve, reject) => {
-      this.imagePromise = { resolve, reject };
+      const input = this.shadowRoot.querySelector("#imageInput");
+      try {
+        input.addEventListener("change", async () => {
+          this.isUploading = true;
+          const path = await this.uploadImage(input.files[0]);
+          resolve(path);
+          // resets the input in case the user uploads a file with the same name (or the same file again) to trigger the onchange event again
+          input.value = null;
+          this.isUploading = false;
+        });
+        input.click();
+      } catch (e) {
+        input.value = null;
+        this.isUploading = false;
+        reject(e);
+      }
     });
   }
 
@@ -70,12 +90,16 @@ class ImageSelection extends BaseQuestion {
     return html`
       <div class="answers">
         <label>Answers </label>
+        ${this.isUploading
+          ? html`
+              <x-loading-indicator />
+            `
+          : null}
 
         <input
           id="imageInput"
           type="file"
           accept="image/*"
-          @change=${this.inputChange}
           style="display: none"
         />
 
