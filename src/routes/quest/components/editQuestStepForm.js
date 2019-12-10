@@ -85,7 +85,6 @@ export function editQuestStepForm(state) {
           newQuestStepType = Array.isArray(e.detail.questions)
             ? "multi"
             : "question";
-          this.requestUpdate();
         }}
       ></question-form>
 
