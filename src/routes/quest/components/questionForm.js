@@ -7,20 +7,6 @@ import "./questions/order";
 import "./questions/image";
 
 class QuestionForm extends LitElement {
-  connectedCallback() {
-    super.connectedCallback();
-
-    if (!Array.isArray(this.questions)) {
-      if (this.questions) {
-        this.questions = [this.questions];
-      } else {
-        this.questions = [];
-      }
-    }
-
-    this.requestUpdate();
-  }
-
   static get properties() {
     return {
       questions: { type: Array }
@@ -61,6 +47,13 @@ class QuestionForm extends LitElement {
   }
 
   render() {
+    if (!Array.isArray(this.questions)) {
+      if (this.questions) {
+        this.questions = [this.questions];
+      } else {
+        this.questions = [];
+      }
+    }
     return html`
       <div>
         ${this.questions.map((question, i) => {

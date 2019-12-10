@@ -82,6 +82,9 @@ export default class BaseQuestion extends LitElement {
   }
 
   render() {
+    if (!this.data) this.data = {};
+    if (!this.data.options) this.data.options = [];
+
     return html`
       <div class="header">
         <h3>${this.title}</h3>
