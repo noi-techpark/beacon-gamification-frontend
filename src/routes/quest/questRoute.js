@@ -7,7 +7,8 @@ import {
   getQuestListAction,
   selectQuestAction,
   selectQuestStepAction,
-  editQuestStepAction
+  editQuestStepAction,
+  openCreateQuestStep
 } from "../../actions/questActions";
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
@@ -48,15 +49,10 @@ class Quest extends connect(store)(LitElement) {
     if (questReducer.questList.results) {
       this.questList = [...questReducer.questList.results];
     }
-    if (questReducer.currentQuestStep) {
-      this.currentQuestStep = { ...questReducer.currentQuestStep };
-    }
-    if (questReducer.currentQuest) {
-      this.currentQuest = { ...questReducer.currentQuest };
-    }
-    if (questReducer.currentQuestId) {
-      this.currentQuestId = questReducer.currentQuestId;
-    }
+    this.currentQuestStep = { ...questReducer.currentQuestStep };
+    this.currentQuest = { ...questReducer.currentQuest };
+    this.currentQuestId = questReducer.currentQuestId;
+    this.isCreatingQuestStep = questReducer.isCreatingQuestStep;
   }
 
   async firstUpdated() {
@@ -136,7 +132,7 @@ class Quest extends connect(store)(LitElement) {
             ? html`
                 <button
                   @click=${() => {
-                    this.manageShowQuestModals(MODAL_IDS.createQuestStep);
+                    store.dispatch(openCreateQuestStep());
                   }}
                 >
                   ➕ Add step
@@ -145,7 +141,7 @@ class Quest extends connect(store)(LitElement) {
             : null}
 
           <x-sortable-list
-            .data=${this.currentQuest
+            .data=${this.currentQuest && this.currentQuest.steps
               ? this.currentQuest.steps.sort(
                   (a, b) => a.quest_index - b.quest_index
                 )
@@ -201,6 +197,14 @@ class Quest extends connect(store)(LitElement) {
                 <div>
                   <h3>Step details:</h3>
                   ${this.editQuestStepForm(store.getState())}
+                </div>
+              `
+            : null}
+          ${this.isCreatingQuestStep
+            ? html`
+                <div>
+                  <h3>Create new step:</h3>
+                  ${this.createQuestStepForm(store.getState())}
                 </div>
               `
             : null}

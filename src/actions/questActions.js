@@ -190,3 +190,9 @@ export const deleteQuestStepAction = id => async (dispatch, getState) => {
     console.error(e);
   }
 };
+
+export const openCreateQuestStep = () => {
+  return {
+    type: questsReducerActionTypes.OPEN_CREATE_QUEST_STEP
+  };
+};
