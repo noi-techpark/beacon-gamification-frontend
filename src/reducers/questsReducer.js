@@ -13,9 +13,6 @@ export const questsReducerActionTypes = {
 };
 
 const INITIAL_STATE = {
-  // currentQuestId?: number;
-  // currentQuest: {};
-  // currentQuestStep: {};
   isCreatingQuestStep: false,
   isFetching: false,
   questList: {}

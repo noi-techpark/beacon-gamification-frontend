@@ -70,7 +70,7 @@ export function createQuestStepForm(state) {
       <label>Properties <small>content of the step</small></label>
 
       <question-form
-        questions=${"[]"}
+        .questions=${[]}
         @data=${e => {
           newQuestStepProperties = JSON.stringify(e.detail.questions);
           newQuestStepType = Array.isArray(e.detail.questions)

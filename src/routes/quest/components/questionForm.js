@@ -61,7 +61,7 @@ class QuestionForm extends LitElement {
             case "single":
               return html`
                 <x-single
-                  data="${JSON.stringify(question)}"
+                  .data=${question}
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-single>
@@ -69,7 +69,7 @@ class QuestionForm extends LitElement {
             case "text":
               return html`
                 <x-text
-                  data="${JSON.stringify(question)}"
+                  .data=${question}
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-text>
@@ -77,7 +77,7 @@ class QuestionForm extends LitElement {
             case "number":
               return html`
                 <x-number
-                  data="${JSON.stringify(question)}"
+                  .data=${question}
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-number>
@@ -85,7 +85,7 @@ class QuestionForm extends LitElement {
             case "multiple":
               return html`
                 <x-multiple
-                  data="${JSON.stringify(question)}"
+                  .data=${question}
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-multiple>
@@ -93,7 +93,7 @@ class QuestionForm extends LitElement {
             case "order":
               return html`
                 <x-order
-                  data="${JSON.stringify(question)}"
+                  .data=${question}
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-order>
@@ -101,7 +101,7 @@ class QuestionForm extends LitElement {
             case "image":
               return html`
                 <x-image
-                  data="${JSON.stringify(question)}"
+                  .data=${question}
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-image>
