@@ -67,14 +67,16 @@ export function createQuestStepForm(state) {
       />
 
       <label>Properties <small>content of the step</small></label>
-      <textarea
-        rows="4"
-        value=${newQuestStepProperties}
-        @keyup=${e => {
-          newQuestStepProperties = e.target.value;
+
+      <question-form
+        questions=${"[]"}
+        @data=${e => {
+          newQuestStepProperties = JSON.stringify(e.detail.questions);
+          newQuestStepType = Array.isArray(e.detail.questions)
+            ? "multi"
+            : "question";
         }}
-        name="properties"
-      ></textarea>
+      ></question-form>
 
       <label>Value Points</label>
       <input
