@@ -4,22 +4,9 @@ import "./questions/text";
 import "./questions/number";
 import "./questions/multiple";
 import "./questions/order";
+import "./questions/image";
 
 class QuestionForm extends LitElement {
-  connectedCallback() {
-    super.connectedCallback();
-
-    if (!Array.isArray(this.questions)) {
-      if (this.questions) {
-        this.questions = [this.questions];
-      } else {
-        this.questions = [];
-      }
-    }
-
-    this.requestUpdate();
-  }
-
   static get properties() {
     return {
       questions: { type: Array }
@@ -60,6 +47,13 @@ class QuestionForm extends LitElement {
   }
 
   render() {
+    if (!Array.isArray(this.questions)) {
+      if (this.questions) {
+        this.questions = [this.questions];
+      } else {
+        this.questions = [];
+      }
+    }
     return html`
       <div>
         ${this.questions.map((question, i) => {
@@ -67,7 +61,7 @@ class QuestionForm extends LitElement {
             case "single":
               return html`
                 <x-single
-                  data="${JSON.stringify(question)}"
+                  .data=${question}
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-single>
@@ -75,7 +69,7 @@ class QuestionForm extends LitElement {
             case "text":
               return html`
                 <x-text
-                  data="${JSON.stringify(question)}"
+                  .data=${question}
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-text>
@@ -83,7 +77,7 @@ class QuestionForm extends LitElement {
             case "number":
               return html`
                 <x-number
-                  data="${JSON.stringify(question)}"
+                  .data=${question}
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-number>
@@ -91,7 +85,7 @@ class QuestionForm extends LitElement {
             case "multiple":
               return html`
                 <x-multiple
-                  data="${JSON.stringify(question)}"
+                  .data=${question}
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-multiple>
@@ -99,10 +93,18 @@ class QuestionForm extends LitElement {
             case "order":
               return html`
                 <x-order
-                  data="${JSON.stringify(question)}"
+                  .data=${question}
                   @data=${e => this.editQuestion(i, e.detail.data)}
                   @remove=${() => this.removeQuestion(i)}
                 ></x-order>
+              `;
+            case "image":
+              return html`
+                <x-image
+                  .data=${question}
+                  @data=${e => this.editQuestion(i, e.detail.data)}
+                  @remove=${() => this.removeQuestion(i)}
+                ></x-image>
               `;
             default:
               return html`
@@ -115,6 +117,7 @@ class QuestionForm extends LitElement {
           <option>multiple</option>
           <option>order</option>
           <option>text</option>
+          <option>image</option>
         </select>
         <button @click=${this.addQuestion}>Add question</button>
       </div>

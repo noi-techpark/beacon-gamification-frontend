@@ -43,6 +43,13 @@ export default class InlineAnswer extends LitElement {
       .content auto-textarea {
         flex: 1;
       }
+      .actions {
+        display: flex;
+        flex-direction: row;
+      }
+      .actions a {
+        margin: 0 5px;
+      }
     `;
   }
 
@@ -71,7 +78,7 @@ export default class InlineAnswer extends LitElement {
           ></auto-textarea>
         </slot>
       </div>
-      <div>
+      <div class="actions">
         <slot name="actions"></slot>
         <!-- a href="javascript:;">edit </a-->
         <a

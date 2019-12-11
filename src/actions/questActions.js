@@ -112,13 +112,21 @@ export const selectQuestStepAction = id => {
 
 export const createQuestStepAction = body => async (dispatch, getState) => {
   try {
+    dispatch({
+      type: questsReducerActionTypes.START_FETCHING
+    });
+
+    const formData = Object.entries(body).reduce((acc, [key, value]) => {
+      acc.append(key, value);
+      return acc;
+    }, new FormData());
+
     await fetch(`${API_CONFIG.base_path}/quest-steps/`, {
       method: "POST",
+      body: formData,
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Token ${localStorage.getItem("auth-token")}`
-      },
-      body: JSON.stringify(body)
+      }
     });
     const requestQuestList = await fetch(`${API_CONFIG.base_path}/quest/`, {
       headers: {
@@ -185,4 +193,10 @@ export const deleteQuestStepAction = id => async (dispatch, getState) => {
   } catch (e) {
     console.error(e);
   }
+};
+
+export const openCreateQuestStep = () => {
+  return {
+    type: questsReducerActionTypes.OPEN_CREATE_QUEST_STEP
+  };
 };

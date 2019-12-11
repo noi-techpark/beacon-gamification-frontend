@@ -7,7 +7,8 @@ import {
   getQuestListAction,
   selectQuestAction,
   selectQuestStepAction,
-  editQuestStepAction
+  editQuestStepAction,
+  openCreateQuestStep
 } from "../../actions/questActions";
 import { store } from "../../createStore";
 import { buttonStyle } from "../../styles/button";
@@ -19,6 +20,7 @@ import { editQuestStepForm } from "./components/editQuestStepForm";
 import { questStyle } from "./questStyle";
 
 import "../../components/sortableList";
+import "../../components/loading-indicator";
 
 class Quest extends connect(store)(LitElement) {
   constructor() {
@@ -48,15 +50,11 @@ class Quest extends connect(store)(LitElement) {
     if (questReducer.questList.results) {
       this.questList = [...questReducer.questList.results];
     }
-    if (questReducer.currentQuestStep) {
-      this.currentQuestStep = { ...questReducer.currentQuestStep };
-    }
-    if (questReducer.currentQuest) {
-      this.currentQuest = { ...questReducer.currentQuest };
-    }
-    if (questReducer.currentQuestId) {
-      this.currentQuestId = questReducer.currentQuestId;
-    }
+    this.currentQuestStep = { ...questReducer.currentQuestStep };
+    this.currentQuest = { ...questReducer.currentQuest };
+    this.currentQuestId = questReducer.currentQuestId;
+    this.isCreatingQuestStep = questReducer.isCreatingQuestStep;
+    this.isFetching = questReducer.isFetching;
   }
 
   async firstUpdated() {
@@ -136,7 +134,7 @@ class Quest extends connect(store)(LitElement) {
             ? html`
                 <button
                   @click=${() => {
-                    this.manageShowQuestModals(MODAL_IDS.createQuestStep);
+                    store.dispatch(openCreateQuestStep());
                   }}
                 >
                   ➕ Add step
@@ -145,7 +143,7 @@ class Quest extends connect(store)(LitElement) {
             : null}
 
           <x-sortable-list
-            .data=${this.currentQuest
+            .data=${this.currentQuest && this.currentQuest.steps
               ? this.currentQuest.steps.sort(
                   (a, b) => a.quest_index - b.quest_index
                 )
@@ -204,6 +202,14 @@ class Quest extends connect(store)(LitElement) {
                 </div>
               `
             : null}
+          ${this.isCreatingQuestStep
+            ? html`
+                <div>
+                  <h3>Create new step:</h3>
+                  ${this.createQuestStepForm(store.getState())}
+                </div>
+              `
+            : null}
         </div>
       </div>
 
@@ -225,6 +231,12 @@ class Quest extends connect(store)(LitElement) {
         }`}
         .contentFunction=${this.createQuestStepForm}
       ></x-modal>
+
+      ${this.isFetching
+        ? html`
+            <x-loading-indicator />
+          `
+        : null}
     `;
   }
 }

@@ -69,7 +69,27 @@ export default class BaseQuestion extends LitElement {
     `;
   }
 
+  addAnswer() {
+    this.data.options.push("");
+    this.updateData();
+  }
+
+  renderAddOptioButton() {
+    return this.data.options.length < 4
+      ? html`
+          <button @click=${this.addAnswer}>
+            Add Answer
+          </button>
+        `
+      : html`
+          Options limit of 4 reached.
+        `;
+  }
+
   render() {
+    if (!this.data) this.data = {};
+    if (!this.data.options) this.data.options = [];
+
     return html`
       <div class="header">
         <h3>${this.title}</h3>

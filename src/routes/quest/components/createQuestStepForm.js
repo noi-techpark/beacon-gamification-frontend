@@ -14,6 +14,7 @@ export function createQuestStepForm(state) {
   let newQuestStepType = "";
   let newQuestStepInstructions = "";
   let newQuestStepBeacon = "";
+  let newImage = "";
 
   return html`
     <form
@@ -26,7 +27,6 @@ export function createQuestStepForm(state) {
           newQuestStepValue_points &&
           newQuestStepValue_points_error &&
           newQuestStepQuest_index &&
-          newQuestStepType &&
           newQuestStepInstructions &&
           newQuestStepBeacon
         ) {
@@ -40,7 +40,8 @@ export function createQuestStepForm(state) {
               type: newQuestStepType,
               instructions: newQuestStepInstructions,
               quest: currentQuest.id,
-              beacon: newQuestStepBeacon
+              beacon: newQuestStepBeacon,
+              image: newImage
             })
           );
         } else {
@@ -57,15 +58,6 @@ export function createQuestStepForm(state) {
         name="name"
       />
 
-      <label>Type</label>
-      <input
-        value=${newQuestStepType}
-        @keyup=${e => {
-          newQuestStepType = e.target.value;
-        }}
-        name="type"
-      />
-
       <label>Instructions <small>text of the step</small></label>
       <input
         value=${newQuestStepInstructions}
@@ -76,14 +68,16 @@ export function createQuestStepForm(state) {
       />
 
       <label>Properties <small>content of the step</small></label>
-      <textarea
-        rows="4"
-        value=${newQuestStepProperties}
-        @keyup=${e => {
-          newQuestStepProperties = e.target.value;
+
+      <question-form
+        .questions=${[]}
+        @data=${e => {
+          newQuestStepProperties = JSON.stringify(e.detail.questions);
+          newQuestStepType = Array.isArray(e.detail.questions)
+            ? "multi"
+            : "question";
         }}
-        name="properties"
-      ></textarea>
+      ></question-form>
 
       <label>Value Points</label>
       <input
@@ -133,6 +127,14 @@ export function createQuestStepForm(state) {
           `;
         })}
       </select>
+
+      <input
+        type="file"
+        accept="image/*"
+        @change=${e => {
+          newImage = e.target.files[0];
+        }}
+      />
 
       <button submit class="full_width submit">
         Create

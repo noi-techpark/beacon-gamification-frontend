@@ -36,14 +36,7 @@ class Single extends BaseQuestion {
             </inline-answer>
           `
         )}
-        <button
-          @click=${() => {
-            this.data.options.push("");
-            this.updateData();
-          }}
-        >
-          Add Answer
-        </button>
+        ${this.renderAddOptioButton()}
       </div>
     `;
   }
