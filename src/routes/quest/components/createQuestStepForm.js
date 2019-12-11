@@ -11,7 +11,6 @@ export function createQuestStepForm(state) {
   let newQuestStepValue_points = "";
   let newQuestStepValue_points_error = "";
   let newQuestStepQuest_index = "";
-  let newQuestStepType = "";
   let newQuestStepInstructions = "";
   let newQuestStepBeacon = "";
   let newImage = "";
