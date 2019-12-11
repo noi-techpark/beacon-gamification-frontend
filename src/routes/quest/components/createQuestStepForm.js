@@ -14,6 +14,7 @@ export function createQuestStepForm(state) {
   let newQuestStepType = "";
   let newQuestStepInstructions = "";
   let newQuestStepBeacon = "";
+  let newImage = "";
 
   return html`
     <form
@@ -40,7 +41,8 @@ export function createQuestStepForm(state) {
               type: newQuestStepType,
               instructions: newQuestStepInstructions,
               quest: currentQuest.id,
-              beacon: newQuestStepBeacon
+              beacon: newQuestStepBeacon,
+              image: newImage
             })
           );
         } else {
@@ -133,6 +135,14 @@ export function createQuestStepForm(state) {
           `;
         })}
       </select>
+
+      <input
+        type="file"
+        accept="image/*"
+        @change=${e => {
+          newImage = e.target.files[0];
+        }}
+      />
 
       <button submit class="full_width submit">
         Create
