@@ -8,7 +8,8 @@ export const questsReducerActionTypes = {
   CREATE_QUEST_STEPS_SUCCESS: "CREATE_QUEST_STEPS_SUCCESS",
   EDIT_QUEST_STEP_SUCCESS: "EDIT_QUEST_STEP_SUCCESS",
   DELETE_QUEST_STEP_SUCCESS: "DELETE_QUEST_STEP_SUCCESS",
-  OPEN_CREATE_QUEST_STEP: "OPEN_CREATE_QUEST_STEP"
+  OPEN_CREATE_QUEST_STEP: "OPEN_CREATE_QUEST_STEP",
+  START_FETCHING: "START_FETCHING"
 };
 
 const INITIAL_STATE = {
@@ -16,6 +17,7 @@ const INITIAL_STATE = {
   // currentQuest: {};
   // currentQuestStep: {};
   isCreatingQuestStep: false,
+  isFetching: false,
   questList: {}
 };
 
@@ -42,7 +44,8 @@ export const questReducer = (state = INITIAL_STATE, action) => {
         questList: action.payload,
         currentQuestStep: {},
         currentQuestStepId: undefined,
-        isCreatingQuestStep: false
+        isCreatingQuestStep: false,
+        isFetching: false
       };
     }
 
@@ -90,7 +93,11 @@ export const questReducer = (state = INITIAL_STATE, action) => {
         currentQuestStepId: null,
         isCreatingQuestStep: true
       };
-
+    case questsReducerActionTypes.START_FETCHING:
+      return {
+        ...state,
+        isFetching: true
+      };
     default:
       return state;
   }

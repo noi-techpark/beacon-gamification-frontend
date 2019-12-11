@@ -112,6 +112,10 @@ export const selectQuestStepAction = id => {
 
 export const createQuestStepAction = body => async (dispatch, getState) => {
   try {
+    dispatch({
+      type: questsReducerActionTypes.START_FETCHING
+    });
+
     const formData = Object.entries(body).reduce((acc, [key, value]) => {
       acc.append(key, value);
       return acc;

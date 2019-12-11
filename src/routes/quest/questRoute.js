@@ -20,6 +20,7 @@ import { editQuestStepForm } from "./components/editQuestStepForm";
 import { questStyle } from "./questStyle";
 
 import "../../components/sortableList";
+import "../../components/loading-indicator";
 
 class Quest extends connect(store)(LitElement) {
   constructor() {
@@ -53,6 +54,7 @@ class Quest extends connect(store)(LitElement) {
     this.currentQuest = { ...questReducer.currentQuest };
     this.currentQuestId = questReducer.currentQuestId;
     this.isCreatingQuestStep = questReducer.isCreatingQuestStep;
+    this.isFetching = questReducer.isFetching;
   }
 
   async firstUpdated() {
@@ -229,6 +231,12 @@ class Quest extends connect(store)(LitElement) {
         }`}
         .contentFunction=${this.createQuestStepForm}
       ></x-modal>
+
+      ${this.isFetching
+        ? html`
+            <x-loading-indicator />
+          `
+        : null}
     `;
   }
 }
