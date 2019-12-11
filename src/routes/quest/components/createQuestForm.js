@@ -8,6 +8,7 @@ export function createQuestForm() {
   let newQuestDescription = "";
   let newQuestEpilogue = "";
   let newQuestInstructions = "";
+  let newImage;
 
   return html`
     <form
@@ -20,7 +21,8 @@ export function createQuestForm() {
             position: newQuestPosition,
             description: newQuestDescription,
             epilogue: newQuestEpilogue,
-            instructions: newQuestInstructions
+            instructions: newQuestInstructions,
+            image: newImage
           })
         );
       }}
@@ -60,6 +62,15 @@ export function createQuestForm() {
           newQuestEpilogue = e.target.value;
         }}
         type="text"
+      />
+
+      <label> Image </label>
+      <input
+        type="file"
+        accept="image/*"
+        @change=${e => {
+          newImage = e.target.files[0];
+        }}
       />
       <button submit class="full_width submit">
         Create

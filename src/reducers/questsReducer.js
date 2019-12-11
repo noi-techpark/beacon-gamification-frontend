@@ -26,7 +26,8 @@ export const questReducer = (state = INITIAL_STATE, action) => {
     case questsReducerActionTypes.GET_QUEST_LIST_SUCCESS:
       return {
         ...state,
-        questList: action.payload
+        questList: action.payload,
+        isFetching: false
       };
 
     case questsReducerActionTypes.CREATE_QUEST_STEPS_SUCCESS:
