@@ -69,6 +69,11 @@ export default class BaseQuestion extends LitElement {
     `;
   }
 
+  addAnswer() {
+    this.data.options.push("");
+    this.updateData();
+  }
+
   renderAddOptioButton() {
     return this.data.options.length < 4
       ? html`
