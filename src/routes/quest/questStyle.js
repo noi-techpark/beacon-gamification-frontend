@@ -67,7 +67,7 @@ export const questStyle = css`
   .quest_steps_details {
     width: calc(40% - 1rem);
     margin-left: 1rem;
-    padding: 1rem;
+    padding: 0px 1rem;
   }
   .quest_steps_details form {
     display: flex;
@@ -76,5 +76,12 @@ export const questStyle = css`
 
   .quest_steps_details h3 {
     padding: 0px;
+  }
+
+  .quest_list,
+  .quest_steps_list,
+  .quest_steps_details {
+    overflow: scroll;
+    height: calc(100vh - 60px - 44px);
   }
 `;

@@ -28,7 +28,6 @@ class Root extends LitElement {
       }
       .content {
         flex: 1;
-        overflow: scroll;
       }
     `;
   }
