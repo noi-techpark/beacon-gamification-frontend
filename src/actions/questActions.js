@@ -1,15 +1,26 @@
 import { questsReducerActionTypes } from "../reducers/questsReducer";
 import { API_CONFIG } from "../config";
 
+const objectToFormData = obj =>
+  Object.entries(obj).reduce((acc, [key, value]) => {
+    acc.append(key, value);
+    return acc;
+  }, new FormData());
+
 export const createQuestAction = body => async (dispatch, getState) => {
   try {
+    dispatch({
+      type: questsReducerActionTypes.START_FETCHING
+    });
+
+    const formData = objectToFormData(body);
+
     await fetch(`${API_CONFIG.base_path}/quest/`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
         Authorization: `Token ${localStorage.getItem("auth-token")}`
       },
-      body: JSON.stringify(body)
+      body: formData
     });
     const requestQuestList = await fetch(`${API_CONFIG.base_path}/quest/`, {
       headers: {
@@ -116,10 +127,7 @@ export const createQuestStepAction = body => async (dispatch, getState) => {
       type: questsReducerActionTypes.START_FETCHING
     });
 
-    const formData = Object.entries(body).reduce((acc, [key, value]) => {
-      acc.append(key, value);
-      return acc;
-    }, new FormData());
+    const formData = objectToFormData(body);
 
     await fetch(`${API_CONFIG.base_path}/quest-steps/`, {
       method: "POST",

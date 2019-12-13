@@ -60,6 +60,12 @@ export const questStyle = css`
   .quest_step__content {
     width: 80%;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+  }
+  .quest_step__content__drag_handle {
+    font-size: 30px;
+    margin-right: 10px;
   }
   .quest_steps_list .quest_step button {
     width: auto;
@@ -67,7 +73,7 @@ export const questStyle = css`
   .quest_steps_details {
     width: calc(40% - 1rem);
     margin-left: 1rem;
-    padding: 1rem;
+    padding: 0px 1rem;
   }
   .quest_steps_details form {
     display: flex;
@@ -76,5 +82,12 @@ export const questStyle = css`
 
   .quest_steps_details h3 {
     padding: 0px;
+  }
+
+  .quest_list,
+  .quest_steps_list,
+  .quest_steps_details {
+    overflow: scroll;
+    height: calc(100vh - 60px - 44px);
   }
 `;

@@ -39,8 +39,10 @@ class Login extends LitElement {
           align-self: center;
           height: 100px;
           width: auto;
-          max-width: 394px;
           margin: 0 20px;
+        }
+        .logos > img.sud_tirol {
+          height: 120px;
         }
         .logos > img.beacon {
           height: 60px;
@@ -99,7 +101,11 @@ class Login extends LitElement {
       </div>
       <div class="logos">
         <img src="/assets/logo_beacon.svg" alt="Logo Beacon" class="beacon" />
-        <img src="/assets/logo.png" alt="Logo sudtirol" />
+        <img
+          src="/assets/efre-fesr_logo_lang_rgb.jpg"
+          alt="Logo sudtirol"
+          class="sud_tirol"
+        />
         <img src="/assets/logo_noi.png" alt="Logo NOI techpark" />
       </div>
     `;
