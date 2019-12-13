@@ -1,4 +1,4 @@
-import { html, LitElement } from "lit-element";
+import { html, LitElement, css } from "lit-element";
 import { connect } from "pwa-helpers";
 import { showModalAction } from "../../actions/modalsActions";
 import {
@@ -76,6 +76,14 @@ class Quest extends connect(store)(LitElement) {
     });
   }
 
+  mouseEnterDragHandle(e) {
+    e.target.parentElement.parentElement.draggable = "true";
+  }
+
+  mouseLeaveDragHandle(e) {
+    e.target.parentElement.parentElement.removeAttribute("draggable");
+  }
+
   render() {
     return html`
       <div class="quest_inspector_container">
@@ -148,6 +156,7 @@ class Quest extends connect(store)(LitElement) {
                   (a, b) => a.quest_index - b.quest_index
                 )
               : []}
+            .defaultDraggable=${false}
             .renderElement=${o => {
               return html`
                 <div
@@ -161,9 +170,18 @@ class Quest extends connect(store)(LitElement) {
                       store.dispatch(selectQuestStepAction(o.id));
                     }}
                   >
-                    <p>Step ${o.quest_index}</p>
-                    <p>Name: ${o.name}</p>
-                    <p>Points: ${o.value_points}</p>
+                    <span
+                      @mouseenter=${this.mouseEnterDragHandle}
+                      @mouseleave=${this.mouseLeaveDragHandle}
+                      class="quest_step__content__drag_handle"
+                    >
+                      ≡</span
+                    >
+                    <div>
+                      <p>Step ${o.quest_index}</p>
+                      <p>Name: ${o.name}</p>
+                      <p>Points: ${o.value_points}</p>
+                    </div>
                   </div>
                   <div>
                     <button

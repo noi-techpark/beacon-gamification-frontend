@@ -60,6 +60,12 @@ export const questStyle = css`
   .quest_step__content {
     width: 80%;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+  }
+  .quest_step__content__drag_handle {
+    font-size: 30px;
+    margin-right: 10px;
   }
   .quest_steps_list .quest_step button {
     width: auto;
