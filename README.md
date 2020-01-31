@@ -20,6 +20,7 @@ The project will then be available at `http://127.0.0.1:8081`
 
 ## Building Your Application
 
-`$ yarn pb` will generate the builds `dev`, `es5prod` and `es6prod`.
+* Create a file called `prodApiUrl.txt` in the folder above the root.
+* `$ yarn pb` will generate the builds `dev`, `es5prod` and `es6prod`.
 
 At the current time the assets (images and logos) are only copied in the `es5prod` build, if you want to change that, change the pb command in `package.json`
