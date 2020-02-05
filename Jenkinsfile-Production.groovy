@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage('Configure') {
             steps {
-                sh "echo '${API}' > config/api-url.txt"
+                sh "echo -n '${API}' > config/api-url.txt"
             }
         }
         stage('Dependencies') {
