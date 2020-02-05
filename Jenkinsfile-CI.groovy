@@ -6,7 +6,16 @@ pipeline {
         }
     }
 
+    environment {
+        API = "http://localhost:8000/api/v1"
+    }
+
     stages {
+        stage('Configure') {
+            steps {
+                sh "echo '${API}' > config/api-url.txt"
+            }
+        }
         stage('Dependencies') {
             steps {
                 sh 'yarn install'
