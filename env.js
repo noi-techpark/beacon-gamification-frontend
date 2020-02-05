@@ -2,7 +2,7 @@ const fs = require("fs");
 
 const env = process.env.uenv;
 
-fs.readFile("../prodApiUrl.txt", "utf8", (err, url) => {
+fs.readFile("./config/api-url.txt", "utf8", (err, url) => {
   if (err) throw err;
   fs.writeFileSync(
     "./environments/current.js",
