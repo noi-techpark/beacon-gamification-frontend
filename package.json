@@ -4,8 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "ps": "polymer serve",
-    "pb": "polymer build && cp -r assets build/es5prod/",
+    "ps": "uenv=dev node ./env.js && polymer serve",
+    "pb": "uenv=prod node ./env.js && polymer build && cp -r assets build/es5prod/",
     "ph": "polymer --help",
     "pi": "polymer init"
   },

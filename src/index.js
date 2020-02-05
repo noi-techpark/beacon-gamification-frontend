@@ -1,7 +1,10 @@
 import { LitElement, html, css } from "lit-element";
-import "../src/routes/login";
-import "../src/routes/quest/questRoute";
-import "../src/routes/beacon/beaconRoute";
+import "./routes/login";
+import "./routes/quest/questRoute";
+import "./routes/beacon/beaconRoute";
+// import "../src/routes/login";
+// import "../src/routes/quest/questRoute";
+// import "../src/routes/beacon/beaconRoute";
 import "./components/modal";
 import "./components/navbar";
 import "./components/footer";
