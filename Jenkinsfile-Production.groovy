@@ -31,7 +31,7 @@ pipeline {
         }
         stage('Upload') {
             steps {
-                s3Upload(bucket: 'prod-gamification-web', acl: 'PublicRead', file: './es5prod')
+                s3Upload(bucket: 'prod-gamification-web', acl: 'PublicRead', file: './build/es5prod')
             }
         }
     }
