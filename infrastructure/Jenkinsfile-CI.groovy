@@ -1,16 +1,13 @@
 pipeline {
     agent {
         dockerfile {
-            filename 'docker/dockerfile-node'
+            filename 'infrastructure/docker/dockerfile-node'
             additionalBuildArgs '--build-arg JENKINS_USER_ID=`id -u jenkins` --build-arg JENKINS_GROUP_ID=`id -g jenkins`'
         }
     }
 
     environment {
-        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
-        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-
-        API = "https://api.gamification.beacon.bz.it/api/v1"
+        API = "http://localhost:8000/api/v1"
     }
 
     stages {
@@ -24,14 +21,9 @@ pipeline {
                 sh 'yarn install'
             }
         }
-        stage('Build') {
+        stage('Test') {
             steps {
                 sh 'yarn run pb'
-            }
-        }
-        stage('Upload') {
-            steps {
-                s3Upload(bucket: 'prod-gamification-web', acl: 'PublicRead', file: './build/es5prod')
             }
         }
     }
