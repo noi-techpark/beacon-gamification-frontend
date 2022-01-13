@@ -16,8 +16,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-20.04
+    env:
+      API: http://localhost:8000/api/v1
     steps:
       - uses: actions/checkout@v2
+
+      run: sh "echo -n $API > config/api-url.txt"
+      
       - uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install # will run `yarn install` command
