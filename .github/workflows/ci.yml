@@ -17,12 +17,12 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     env:
-      API: "http://localhost:8000/api/v1"
+      API: http://localhost:8000/api/v1
     steps:
       - uses: actions/checkout@v2
 
       - name: Config
-        run: sh "echo -n $API > config/api-url.txt"
+        run: sh "echo -n \"$API\" > config/api-url.txt"
 
       - uses: borales/actions-yarn@v2.3.0
         with:
