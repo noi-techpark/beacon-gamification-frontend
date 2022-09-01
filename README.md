@@ -1,7 +1,7 @@
 # beacon-gamification-frontend
 Frontend for the beacon gamification back-office developed using the [lit-element](https://lit-element.polymer-project.org/) polymer library.
 
-[![CI](https://github.com/noi-techpark/beacon-gamification-frontend/actions/workflows/ci.yml/badge.svg)](https://github.com/noi-techpark/beacon-gamification-frontend/actions/workflows/ci.yml)
+[![CI/CD](https://github.com/noi-techpark/beacon-gamification-frontend/actions/workflows/main.yml/badge.svg)](https://github.com/noi-techpark/beacon-gamification-frontend/actions/workflows/main.yml)
 
 ## Install the Dependencies
 
