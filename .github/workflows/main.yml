@@ -1,0 +1,102 @@
+name: CI/CD
+
+on:
+  push:
+  pull_request:
+
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    env:
+      API: http://localhost:8000/api/v1
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Config
+        run: echo -n "$API" > config/api-url.txt
+
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: install # will run `yarn install` command
+      - uses: borales/actions-yarn@v3.0.0
+        with:
+          cmd: pb
+
+  deploy-test:
+    runs-on: ubuntu-20.04
+    if: github.ref == 'refs/heads/main'
+    needs: test
+    concurrency: deploy-test
+    env:
+      AWS_S3_BUCKET_NAME : 'test-gamification-web'
+      AWS_REGION : "eu-west-1"
+      API_URL: "https://api.gamification.beacon.testingmachine.eu/api/v1"
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Setup node and yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12.x'
+          cache: 'yarn'
+          cache-dependency-path: yarn.lock
+
+      - name: Configure API
+        run: echo -n ${{ env.API_URL }} > config/api-url.txt
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn run pb
+
+      - name: Sync to S3 bucket
+        uses: noi-techpark/github-actions/aws-s3-bucket-sync@v2
+        with:
+          access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY }}
+          region: ${{ env.AWS_REGION }}
+          s3-bucket-name: ${{ env.AWS_S3_BUCKET_NAME }}
+          folder: ./build/es5prod
+
+  deploy-production:
+    runs-on: ubuntu-20.04
+    if: github.ref == 'refs/heads/prod'
+    needs: test
+    concurrency: deploy-production
+    env:
+      AWS_S3_BUCKET_NAME : 'prod-gamification-web'
+      AWS_REGION : "eu-west-1"
+      API_URL: "https://api.gamification.beacon.bz.it/api/v1"
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Setup node and yarn
+        uses: actions/setup-node@v2
+        with:
+          node-version: '12.x'
+          cache: 'yarn'
+          cache-dependency-path: yarn.lock
+
+      - name: Configure API
+        run: echo -n ${{ env.API_URL }} > config/api-url.txt
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build
+        run: yarn run pb
+
+      - name: Sync to S3 bucket
+        uses: noi-techpark/github-actions/aws-s3-bucket-sync@v2
+        with:
+          access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_ID }}
+          secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY }}
+          region: ${{ env.AWS_REGION }}
+          s3-bucket-name: ${{ env.AWS_S3_BUCKET_NAME }}
+          folder: ./build/es5prod
