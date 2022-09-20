@@ -1,53 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>QuestBuilder</title>
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="src/cookieconsent/cookieconsent.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous" />
+    <link rel="stylesheet" href="plapla/cookieconsent/cookieconsent.css">
+    <script defer src="plapla/cookieconsent/cookieconsent.js"></script>
+    <script defer src="plapla/cookieconsent/cookieconsent-init.js"></script>
 
     <!-- Matomo -->
     <script type="text/plain" data-cookiecategory="targeting">
-      var _paq = window._paq = window._paq || [];
-      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-      _paq.push(['trackPageView']);
-      _paq.push(['enableLinkTracking']);
-      (function() {
-        var u="https://digital.matomo.cloud/";
-        _paq.push(['setTrackerUrl', u+'matomo.php']);
-        _paq.push(['setSiteId', '19']);
-        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-        g.async=true; g.src='//cdn.matomo.cloud/digital.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
-      })();
+        var _paq = window._paq = window._paq || []; /* tracker methods like "setCustomDimension" should be called before "trackPageView" */ _paq.push(['trackPageView']); _paq.push(['enableLinkTracking']); (function() { var u="https://digital.matomo.cloud/"; _paq.push(['setTrackerUrl',
+        u+'matomo.php']); _paq.push(['setSiteId', '19']); var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0]; g.async=true; g.src='//cdn.matomo.cloud/digital.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s); })();
     </script>
     <!-- End Matomo Code -->
 
     <script type="module" src="/src/index.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <style>
-      html,
-      body {
-        height: 100%;
-      }
+        html,
+        body {
+            height: 100%;
+        }
     </style>
     <x-root></x-root>
     <script>
-      // HACK: The Redux package assumes `process` exists - mock it here before the module is loaded.
-      window.process = {
-        env: {
-          NODE_ENV: "production"
-        }
-      };
+        // HACK: The Redux package assumes `process` exists - mock it here before the module is loaded.
+        window.process = {
+            env: {
+                NODE_ENV: "production"
+            }
+        };
     </script>
-    <script defer src="src/cookieconsent/cookieconsent.js"></script>
-    <script defer src="src/cookieconsent/cookieconsent-init.js"></script>
-  </body>
+
+</body>
+
 </html>

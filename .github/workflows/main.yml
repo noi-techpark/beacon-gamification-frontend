@@ -71,10 +71,13 @@ jobs:
       AWS_S3_BUCKET_NAME : 'prod-gamification-web'
       AWS_REGION : "eu-west-1"
       API_URL: "https://api.gamification.beacon.bz.it/api/v1"
-
+      SCRIPTS_HOST: 'https://scripts.opendatahub.com'
     steps:
       - name: Checkout source code
         uses: actions/checkout@v2
+
+      - name: Change scripts host to prod
+        run: sed -i -e "s%https://scripts.opendatahub.testingmachine.eu%${{env.SCRIPTS_HOST}}%g" index.html
 
       - name: Setup node and yarn
         uses: actions/setup-node@v2
